@@ -24,3 +24,13 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.box{@apply max-w-3xl m-auto my-8 rounded-2xl border-1 border-white p-4}
+
+.linkButton {@apply bg-white text-gray-800 p-4 rounded}
+
+.linkButton:hover {@apply text-white border-white bg-gray-800}
+
+.pageTitle {@apply text-4xl text-center}
+
+.textInput {@apply border-1 border-white p-2 rounded-xl mx-4}
