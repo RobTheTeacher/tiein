@@ -1,0 +1,18 @@
+Have created the reset paswword form
+
+An email is send with a local host link
+  ---Check the the link is accurate
+
+ON clicking email link redirect to proper page
+  ---goes to home page
+
+Have created rest PW form, nut user sessio doesnt exist
+   --- must pares get info from url
+
+   ----------------------------
+
+   get code from email … done
+
+   create new sesson ... done exchange code fro sessiion
+
+   Bug: auth session missing on updateUser call
