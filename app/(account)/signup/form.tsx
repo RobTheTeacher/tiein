@@ -16,20 +16,15 @@ const SignUpForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(values => mutate(values))} className="flex flex-col">
-        <label htmlFor="email">You need an email to sign up!</label>
-        <input className="textInput" {...register("email")} placeholder="Email..." />
+      <form onSubmit={handleSubmit(values => mutate(values))} className="flex flex-col max-w-[350px] m-auto">
+        <input className="textInput" {...register("email")} placeholder="Email" />
         {errors.email && <p>{errors.email.message}</p>}
-        <label htmlFor="username">Create a username - we'll tell you if it's already been taken</label>
-        <input className="textInput" {...register("username")} placeholder="Who are you?" />
+        <input className="textInput" {...register("username")} placeholder="Username" />
         {errors.username && <p>{errors.username.message}</p>}
-
-        <label htmlFor="password">And you'll need a password
-        </label>
-        <input className="textInput" type="password" {...register("password")} placeholder="Shh, its a secret" />
+        <input className="textInput" type="password" {...register("password")} placeholder="Password" />
         {errors.password && <p>{errors.password.message}</p>}
 
-        <button type="submit" className="accountLink">Join Us!</button>
+        <button type="submit" className="linkButton mt-8">Tie In &#8594;</button>
       </form>
       {error && <p className="text-white">{error.message}</p>}
     </>
