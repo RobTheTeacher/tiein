@@ -9,7 +9,7 @@ const LogInPage = () => {
         <Link className="" href="/about">Learn more about Tie In &#8594;</Link>
       </div>
 
-      <div className="m-auto my-12 max-w-3xl">
+      <div className="pageLayout">
         <h1 className="pageTitle">Log in to</h1>
         <Link className="block my-12" href="/">
           <Image
