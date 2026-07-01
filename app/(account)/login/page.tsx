@@ -23,7 +23,7 @@ const LogInPage = () => {
         </Link>
         <LogInForm />
         <Link href="/reset">Forgot password?</Link>
-        <p>Sign up</p>
+        <Link href="/signup">Sign up</Link>
       </div>
     </div>
   )

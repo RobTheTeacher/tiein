@@ -58,16 +58,19 @@ export type Database = {
       users: {
         Row: {
           created_at: string
+          email: string
           id: string
           username: string
         }
         Insert: {
           created_at?: string
+          email: string
           id?: string
           username: string
         }
         Update: {
           created_at?: string
+          email?: string
           id?: string
           username?: string
         }
@@ -78,7 +81,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      hook_reject_duplicate_display_name: {
+        Args: { event: Json }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never
