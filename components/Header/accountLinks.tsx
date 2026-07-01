@@ -1,4 +1,5 @@
 import LogOutButton from '@/app/(account)/logout';
+import CreatePostButton from '@/app/(main)/ create/button';
 import { createClient } from '@/utils/supabase/serverClient';
 import Link from 'next/link'
 
@@ -11,6 +12,7 @@ const AccountLinks = async () => {
         <>
           <p>Welcome {user.user_metadata.display_name}</p>
           <LogOutButton />
+          <CreatePostButton />
         </>
       }
       {!user &&

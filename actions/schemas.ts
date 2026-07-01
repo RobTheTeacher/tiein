@@ -18,3 +18,9 @@ export const EmailSchema = z.object({
 export const PasswordSchema = z.object({
   password: z.string().min(6, "You need a minimum of 6 characters in your password")
 })
+
+export const PostSchema = z.object({
+  content: z.string(),
+  title: z.string(),
+  slug: z.string()
+})

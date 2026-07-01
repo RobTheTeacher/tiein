@@ -26,4 +26,7 @@ body {
 
 .pageTitle {@apply text-4xl text-center}
 
-.textInput {@apply block bg-white text-black font-bold p-2 mb-4 cursor-pointer}
+.textInput,
+.createInput {@apply block bg-white text-black font-bold p-2 mb-4 cursor-pointer}
+
+.createInput {@apply w-[25vw] h-[25vw] max-w-[40vw] max-h-[40vw]}
