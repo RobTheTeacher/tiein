@@ -8,21 +8,25 @@ import { useForm } from "react-hook-form"
 
 const CreatePostPage = () => {
 
-  const {register, handleSubmit} = useForm({
+  const { register, handleSubmit } = useForm({
     resolver: zodResolver(PostSchema)
   })
 
-  const {mutate, error} = useMutation({
+  const { mutate, error } = useMutation({
     mutationFn: CreatePost
   })
+
   return (
     <div>
       <h1 className="text-5xl text-center mb-16">Make a thread, make some ties</h1>
-      <form onSubmit={handleSubmit(values => mutate({content: values.content, title: values.title, slug: values.title}))}>
+      <form onSubmit={handleSubmit(values => mutate({
+          content: values.content,
+          title: values.title
+        }))}>
         <div className="flex gap-8 justify-center">
-        <input className="textInput" {...register("title")} placeholder="Enter a title" ></input>
-        <input className="createInput"  placeholder="Upload image/s"type="file"></input>
-        <input className="createInput" {...register("content")} type="textbox" placeholder="Add a description" />
+          <input className="textInput" {...register("title")} placeholder="Enter a title" ></input>
+          <input className="createInput" placeholder="Upload image/s" type="file"></input>
+          <input className="createInput" {...register("content")} type="textbox" placeholder="Add a description" />
         </div>
         <button className="block my-16 mx-auto py-4 px-12 text-black rounded-2xl bg-white">Post &#8594;</button>
       </form>

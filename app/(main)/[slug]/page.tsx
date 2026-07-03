@@ -4,7 +4,6 @@ import { getSinglePost } from "@/utils/supabase/queries"
 const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params
   const { data, error } = await getSinglePost(slug)
-  if (error) console.log(error)
   const { title, image, content, author } = { ...data }
 
   return (
