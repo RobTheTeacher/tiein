@@ -19,12 +19,10 @@ export const SignUp = async (userdata: z.infer<typeof SignUpSchema>) => {
     }
   })
 
-console.log("data: ", user, "error ", error)
   if (error) throw new Error(error.message)
 
-
   if (user && user.email) {
-  
+
     const { data, error } = await supabase
       .from("users")
       .insert([{ id: user.id, email: user.email, username: user.user_metadata.display_name }])

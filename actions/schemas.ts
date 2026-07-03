@@ -21,5 +21,6 @@ export const PasswordSchema = z.object({
 
 export const PostSchema = z.object({
   content: z.string(),
-  title: z.string()
+  title: z.string(),
+  image: z.instanceof(FormData)
 })
