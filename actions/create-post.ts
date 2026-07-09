@@ -31,5 +31,5 @@ export const CreatePost = async (userdata: z.infer<typeof PostSchema>) => {
     if(error) throw (error)
     
    revalidatePath('/')
-   //redirect(`/`)
+   redirect(`/`)
 }

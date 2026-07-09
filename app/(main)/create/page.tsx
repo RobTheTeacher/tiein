@@ -9,8 +9,8 @@ import { useForm } from "react-hook-form"
 import z from "zod"
 
 const CreatePostPage = () => {
-  const PostWithImageSchema = 
-      PostSchema.omit({ image: true })
+  const PostWithImageSchema =
+    PostSchema.omit({ image: true })
       .extend({ image: z.unknown().transform(value => { return value as (FileList) }).optional() })
 
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -20,6 +20,15 @@ const CreatePostPage = () => {
   const { mutate, error } = useMutation({
     mutationFn: CreatePost
   })
+
+  const imageChange = (e:any) => {
+    var fileInput = e.target;
+console.log(typeof fileInput)
+let x = fileInput.files;
+    for (var i = 0; i < x.length; i++) {
+      console.log(x[i].name, x.length);
+    }
+  }
 
   return (
     <div>
@@ -36,13 +45,13 @@ const CreatePostPage = () => {
           image: imageForm
         })
       })}>
-        <div className="flex gap-8 justify-center">
-          <div>
-            <input className="textInput" {...register("title")} placeholder="Enter a title" ></input>
+        <div className="flex flex-wrap gap-8 max-w-[calc(50vw+32px)] m-auto justify-center">
+          <div className="basis-[100%]">
+            <input className="textInput w-full" {...register("title")} placeholder="Enter a title" ></input>
             {errors.title && <ErrorMessage message={errors.title.message!} />}
           </div>
           <div>
-            <input className="createInput" {...register("image")} placeholder="Upload image/s" type="file"></input>
+            <input className="createInput" {...register("image", { onChange: imageChange })} placeholder="Upload image/s" type="file" multiple></input>
             {errors.image && <ErrorMessage message={errors.image.message!} />}
           </div>
           <div>
@@ -55,11 +64,9 @@ const CreatePostPage = () => {
       {error && <p className="text-4xl text-white">{error.message}</p>}
 
       <p>To Do:</p>
-      <p>Slugify</p>
-      <p>Image Upload</p>
       <p>Multiple Images upload</p>
       <p>Display the images</p>
-      <p>WORKS WITH HARD CODED TITLE ANDD SLUG, CHECK THE SCHEMA??</p>
+      <p>WORKS WITH HARD CODED TITLE AND SLUG, CHECK THE SCHEMA??</p>
     </div>
   )
 }
