@@ -36,16 +36,16 @@ const CreatePostPage = () => {
           image: imageForm
         })
       })}>
-        <div className="flex gap-8 justify-center">
-          <div>
-            <input className="textInput" {...register("title")} placeholder="Enter a title" ></input>
+        <div className="flex flex-wrap gap-8 justify-center">
+          <div className="w-full">
+            <input className="textInput w-[80%] m-auto" {...register("title")} placeholder="Enter a title" ></input>
             {errors.title && <ErrorMessage message={errors.title.message!} />}
           </div>
-          <div>
+          <div className="w-full md:w-auto">
             <input className="createInput" {...register("image")} placeholder="Upload image/s" type="file"></input>
             {errors.image && <ErrorMessage message={errors.image.message!} />}
           </div>
-          <div>
+          <div className="w-full md:w-auto">
             <input className="createInput" {...register("content")} type="textbox" placeholder="Add a description" />
             {errors.content && <ErrorMessage message={errors.content.message!} />}
           </div>

@@ -25,7 +25,7 @@ const faqs = [
 const FAQs = () => {
   return (
     <div>
-      {faqs && faqs.map((faq, index) => <FAQ {...faq} />)}
+      {faqs && faqs.map((faq, index) => <FAQ key={index} {...faq} />)}
     </div>
   )
 }

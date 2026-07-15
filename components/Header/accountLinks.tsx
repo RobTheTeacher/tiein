@@ -1,27 +1,29 @@
+
+import LogInButton from '@/app/(account)/login/button';
 import LogOutButton from '@/app/(account)/logout';
-import CreatePostButton from '@/app/(main)/ create/button';
+import SignUpButton from '@/app/(account)/signup/button';
+import CreatePostButton from '@/app/(main)/create/button';
 import { createClient } from '@/utils/supabase/serverClient';
+import { DotsThreeCircleVerticalIcon } from "@phosphor-icons/react/dist/ssr";
 import Link from 'next/link'
+import MobileMenu from './mobileMenu';
 
 const AccountLinks = async () => {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser();
   return (
-    <div className="flex gap-4 x">
+    <>
       {user &&
-        <>
-          <p>Welcome {user.user_metadata.display_name}</p>
-          <LogOutButton />
-          <CreatePostButton />
-        </>
+        <MobileMenu name={user.user_metadata.display_name} />
       }
       {!user &&
-        <>
-          <Link className="linkButton" href="/login">Log in</Link>
-          <Link className="linkButton" href="/signup">SignUp</Link>
-        </>
+
+        <div className="flex flex-col gap-4 p-4 md:flex-row">
+          <LogInButton />
+          <SignUpButton />
+        </div>
       }
-    </div>
+    </>
   )
 }
 

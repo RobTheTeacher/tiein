@@ -1,14 +1,18 @@
 @import "tailwindcss";
 
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background: hwb(36 0% 80%);;
-  color: #fff;;
+  background: hwb(36 0% 80%);
+  color: #fff;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1.4rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
+  --color-background:  hwb(36 0% 80%);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -29,4 +33,4 @@ body {
 .textInput,
 .createInput {@apply block bg-white text-black font-bold p-2 mb-4 cursor-pointer}
 
-.createInput {@apply w-[25vw] h-[25vw] max-w-[40vw] max-h-[40vw]}
+.createInput {@apply w-[80%] text-center m-auto md:w-[30vw] md:h-[30vw] }

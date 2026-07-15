@@ -1,14 +1,13 @@
 import Link from "next/link"
 import SignUpForm from "./form"
 import Image from 'next/image'
+import About from "@/components/About"
 
 const SignUpPage = () => {
   return (
     <div className="m-8">
-      <div className="flex justify-end">
-        <Link className="" href="/about">Learn more about Tie In &#8594;</Link>
-      </div>
-      <div className="m-auto my-12 max-w-3xl">
+      <About />
+      <div className="m-auto max-w-3xl">
         <h1 className="pageTitle">Sign up to</h1>
         <Link className="block my-12" href="/">
           <Image
@@ -21,6 +20,8 @@ const SignUpPage = () => {
           />
         </Link>
         <SignUpForm />
+        <p className="text-center mb-4">Already have an account?</p>
+        <Link href="/login" className="block text-center">Log In</Link>
       </div>
     </div>
   )

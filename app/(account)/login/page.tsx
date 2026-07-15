@@ -1,15 +1,14 @@
 import Link from "next/link"
 import Image from "next/image"
 import LogInForm from "./form"
+import About from "@/components/About"
 
 const LogInPage = () => {
   return (
     <div className="m-8">
-      <div className="flex justify-end">
-        <Link className="" href="/about">Learn more about Tie In &#8594;</Link>
-      </div>
+      <About />
 
-      <div className="pageLayout">
+      <div className="pageLayout m-auto max-w-[350px] flex flex-col justify-center">
         <h1 className="pageTitle">Log in to</h1>
         <Link className="block my-12" href="/">
           <Image
@@ -22,8 +21,8 @@ const LogInPage = () => {
           />
         </Link>
         <LogInForm />
-        <Link href="/reset">Forgot password?</Link>
-        <Link href="/signup">Sign up</Link>
+        <Link href="/reset" className="block text-center mb-4">Forgot password?</Link>
+        <Link href="/signup" className="block text-center">Sign up</Link>
       </div>
     </div>
   )

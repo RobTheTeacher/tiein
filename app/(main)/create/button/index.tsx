@@ -4,7 +4,7 @@ const CreatePostButton = () => {
   return (
     <button className="linkButton">
       <Link href="/create">
-        Create a Post
+        Create Tie
       </Link>
     </button>
   )
