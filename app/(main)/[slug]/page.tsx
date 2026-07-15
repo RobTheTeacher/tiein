@@ -1,5 +1,5 @@
-import { createClient } from "@/utils/supabase/serverClient"
 import { getSinglePost } from "@/utils/supabase/queries"
+import Link from "next/link"
 
 const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params
@@ -20,7 +20,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
               <div>Comments todo</div>
             </div>
           </div>
-          <h2 className="my-4">Posted by {author?.username}</h2>
+          <h2 className="my-4"><Link href={`/profile/${author?.id}`}> Posted by {author?.username}</Link></h2>
         </div>
       }</>
   )

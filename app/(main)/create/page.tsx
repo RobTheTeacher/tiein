@@ -30,6 +30,7 @@ const CreatePostPage = () => {
         if (values.image) {
           imageForm.append('image', values.image[0])
         }
+        
         mutate({
           content: values.content,
           title: values.title,
