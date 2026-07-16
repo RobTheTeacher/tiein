@@ -2,7 +2,6 @@ import { v4 as uuid } from 'uuid'
 import { createClient } from './serverClient'
 
 export const uploadImage = async (image: File): Promise<string> => {
-    console.log("here we are")
   const supabase = await createClient();
   const imageName: string[] = image.name.split(".")
   const cleanImage = imageName[0].replace(/\s[^\w]/g, '')

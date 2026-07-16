@@ -7,7 +7,6 @@ import { redirect } from "next/navigation"
 import { slugify } from "@/utils/slugify"
 import { uploadImage } from "@/utils/supabase/upload-image"
 
-
 export const CreatePost = async (userdata: z.infer<typeof PostSchema>) => {
    const supabase = await createClient()
    const {data: {user}} = await supabase.auth.getUser()
@@ -16,8 +15,8 @@ export const CreatePost = async (userdata: z.infer<typeof PostSchema>) => {
    const slug = slugify(parsedData.title)
 
    const imageFile = userdata.image?.get('image')
-
-   if(!(imageFile instanceof File) && imageFile !== null) {
+console.log("Slug: ", imageFile)
+   if(!(imageFile instanceof File) && imageFile !== null || undefined) {
     throw new Error("Malformed Image file")
    }
 
@@ -31,5 +30,5 @@ export const CreatePost = async (userdata: z.infer<typeof PostSchema>) => {
     if(error) throw (error)
     
    revalidatePath('/')
-   //redirect(`/`)
+   redirect(`/${slug}`)
 }

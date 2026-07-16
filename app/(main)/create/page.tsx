@@ -51,7 +51,7 @@ const CreatePostPage = () => {
             {errors.content && <ErrorMessage message={errors.content.message!} />}
           </div>
         </div>
-        <button className="block my-16 mx-auto py-4 px-12 text-black rounded-2xl bg-white">Post &#8594;</button>
+        <button className="block my-16 mx-auto py-4 px-12 text-black rounded-2xl bg-white cursor-pointer">Post &#8594;</button>
       </form>
       {error && <p className="text-4xl text-white">{error.message}</p>}
 
