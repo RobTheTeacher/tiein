@@ -17,7 +17,7 @@ export type Database = {
       posts: {
         Row: {
           author: string
-          category: string
+          category: string | null
           content: string
           created_at: string
           id: number
@@ -27,7 +27,7 @@ export type Database = {
         }
         Insert: {
           author: string
-          category: string
+          category?: string | null
           content: string
           created_at?: string
           id?: number
@@ -37,7 +37,7 @@ export type Database = {
         }
         Update: {
           author?: string
-          category?: string
+          category?: string | null
           content?: string
           created_at?: string
           id?: number
@@ -60,18 +60,21 @@ export type Database = {
           created_at: string
           email: string
           id: string
+          ties: number[]
           username: string
         }
         Insert: {
           created_at?: string
           email: string
           id?: string
+          ties: number[]
           username: string
         }
         Update: {
           created_at?: string
           email?: string
           id?: string
+          ties?: number[]
           username?: string
         }
         Relationships: []
