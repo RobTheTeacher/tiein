@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      loops: {
+        Row: {
+          created_at: string
+          id: number
+          post: number | null
+          user: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          post?: number | null
+          user?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          post?: number | null
+          user?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "loops_post_fkey"
+            columns: ["post"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "loops_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       posts: {
         Row: {
           author: string
@@ -49,6 +85,42 @@ export type Database = {
           {
             foreignKeyName: "post_author_fkey"
             columns: ["author"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ties: {
+        Row: {
+          created_at: string
+          id: number
+          post: number | null
+          user: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          post?: number | null
+          user?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          post?: number | null
+          user?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Ties_post_fkey"
+            columns: ["post"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Ties_user_fkey"
+            columns: ["user"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]

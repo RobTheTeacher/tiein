@@ -14,7 +14,7 @@ const AccountLinks = async () => {
   return (
     <>
       {user &&
-        <MobileMenu name={user.user_metadata.display_name} />
+        <MobileMenu name={user.user_metadata.display_name} id={user.id} />
       }
       {!user &&
 

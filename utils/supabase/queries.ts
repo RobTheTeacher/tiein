@@ -30,13 +30,14 @@ export const getUserPosts = async (profile: string) => {
 
 export const getUserTies = async (userId: string) => {
   const supabase = await createClient()
-  const { data: userTies } = await supabase.from("users").select('ties').eq('id', userId)
+  const { data, error } = await supabase.from("ties").select('post("id", "title", "slug", "image")').eq('user', userId)
+  if (error) throw error
+  return data
+}
 
-  if (userTies) {
-    const { data, error } = await supabase.from("posts")
-      .select('title, image, content, slug, author("username"), id')
-      .in('id', userTies[0].ties)
-
-      if (data) return data
-  }
+export const getUserLoops = async (userId: string) => {
+  const supabase = await createClient()
+  const { data, error } = await supabase.from("loops").select('post("id", "title", "slug", "image")').eq('user', userId)
+  if (error) throw error
+  return data
 }

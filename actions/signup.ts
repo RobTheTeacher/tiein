@@ -28,8 +28,8 @@ export const SignUp = async (userdata: z.infer<typeof SignUpSchema>) => {
       .insert([{ id: user.id, email: user.email, username: user.user_metadata.display_name }])
 
     if (error && error.code === "23505") throw new Error("Username is taken, choose another!")
-  }
+  console.log("Sign up data", error)
+    }
 
   redirect("/")
-
 }

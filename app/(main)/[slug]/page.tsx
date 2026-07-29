@@ -1,14 +1,21 @@
 import { getSinglePost } from "@/utils/supabase/queries"
 import Link from "next/link"
+import TieButton from "./tieButton"
+import { createClient } from "@/utils/supabase/serverClient"
+import LoopButton from "./loopButton"
 
 const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params
   const { data, error } = await getSinglePost(slug)
-  const { title, image, content, author } = { ...data }
+  const { id, title, image, content, author } = { ...data }
+
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser();
 
   return (
     <>
       {data &&
+
         <div>
           <h1 className="text-4xl my-4">{title}</h1>
           <div className="flex gap-8">
@@ -21,8 +28,16 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
             </div>
           </div>
           <h2 className="my-4"><Link href={`/profile/${author?.id}`}> Posted by {author?.username}</Link></h2>
+          {user &&
+            <div>
+              <TieButton user={user.id} post={id!} />
+              <LoopButton user={user.id} post={id!} />
+            </div>
+          }
         </div>
-      }</>
+
+      }
+    </>
   )
 }
 
