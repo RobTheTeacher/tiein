@@ -34,9 +34,7 @@ const ProfilePage = async ({ params }: { params: Promise<{ id: string }> }) => {
             </Link>)}
         </div>
       </div>
-
       <UserTies id={id} />
-
       <UserLoops id={id} />
     </div>
   )

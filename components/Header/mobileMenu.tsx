@@ -15,7 +15,7 @@ const MobileMenu = ({ name,id }: { name: string, id:string }) => {
   return (
     <>
       <div className={`${openMenu ? 'overflow-visible' : 'overflow-hidden'} flex relative flex-col p-4`}>
-        <p className="text-3xl">Welcome   <h2 className="my-4"><Link href={`/profile/${id}`}>{name}</Link></h2></p>
+        <div className="text-3xl">Welcome   <h2 className="my-4"><Link href={`/profile/${id}`}>{name}</Link></h2></div>
         <DotsThreeCircleVerticalIcon onClick={handleClick} size={32} className="md:hidden my-2 self-center text-center" />
 
         <div className={`${openMenu ? 'left-[0] overflow-visible' : 'left-[100%] overflow-hidden'} transition-[left] absolute top-[100%] bg-background flex flex-col h-[calc(100vh-100%)] w-full py-4 gap-4 md:block md:static`}>

@@ -6,7 +6,7 @@ const UserTies = async ({ id }: { id: string }) => {
   const ties = await getUserTies(id)
   return (
     <>
-      {ties?.length &&
+      {ties?.length > 0 &&
         <>
           <h2 className="text-4xl text-center mb-8 mt-8">"All your ties"</h2>
           <div className='pl-8 md:ml-auto md:w-[80%] flex flex-wrap gap-8'>

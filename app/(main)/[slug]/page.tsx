@@ -1,8 +1,9 @@
-import { getSinglePost } from "@/utils/supabase/queries"
+import { checkUserLoops, checkUserTies, getSinglePost } from "@/utils/supabase/queries"
 import Link from "next/link"
-import TieButton from "./tieButton"
 import { createClient } from "@/utils/supabase/serverClient"
+
 import LoopButton from "./loopButton"
+import TieButton from "./tieButton"
 
 const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params
@@ -12,11 +13,16 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser();
 
+  let tiedIn = user ? await checkUserTies(user.id, id!) : false
+
+  let loopedIn = user ? await checkUserLoops(user.id, id!) : false
+
+  console.log("Tied in: ", tiedIn)
+
   return (
     <>
       {data &&
-
-        <div>
+        <div className="p-4" >
           <h1 className="text-4xl my-4">{title}</h1>
           <div className="flex gap-8">
             <div className="flex-2/3">
@@ -28,11 +34,14 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
             </div>
           </div>
           <h2 className="my-4"><Link href={`/profile/${author?.id}`}> Posted by {author?.username}</Link></h2>
-          {user &&
+          {user ? user.id !== author?.id &&
             <div>
-              <TieButton user={user.id} post={id!} />
-              <LoopButton user={user.id} post={id!} />
+              <div className="flex flex-col md:flex-row gap-4">
+                <TieButton user={user.id} post={id!} tiedIn={tiedIn} />
+                <LoopButton user={user.id} post={id!} loopedIn={loopedIn} />
+              </div>
             </div>
+            : <></>
           }
         </div>
 

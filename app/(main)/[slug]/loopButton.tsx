@@ -1,12 +1,18 @@
 'use client'
-import { LoopIn } from "@/actions/loop-in";
+import { LoopIn, UnLoop } from "@/actions/loop-in";
 
-const LoopButton = ({ user, post }: { user: string, post: number }) => {
+const LoopButton = ({ user, post, loopedIn }: { user: string, post: number, loopedIn: boolean }) => {
   return (
     <>
       {user &&
-        <div onClick={() => LoopIn({ user: user, post: post })}>
-          Keep me in the loop!</div>
+        loopedIn ?
+        <div className="linkButton" onClick={() => UnLoop({ user: user, post: post })}>
+          UnLoop!
+        </div >
+        :
+        <div className="linkButton" onClick={() => LoopIn({ user: user, post: post })}>
+          Keep me in the loop!
+        </div>
       }
     </>
   )

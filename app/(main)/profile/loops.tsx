@@ -2,11 +2,10 @@ import { getUserLoops, getUserTies } from "@/utils/supabase/queries"
 import Link from "next/link"
 
 const UserLoops = async ({ id }: { id: string }) => {
-
   const loops = await getUserLoops(id)
   return (
-    <>
-      {loops?.length &&
+     <>
+      {loops?.length > 0 &&
         <>
           <h2 className="text-4xl text-center mb-8 mt-8">Keep me in the loop</h2>
           <div className='pl-8 md:ml-auto md:w-[80%] flex flex-wrap gap-8'>

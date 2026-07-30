@@ -96,19 +96,19 @@ export type Database = {
           created_at: string
           id: number
           post: number | null
-          user: string | null
+          user_id: string | null
         }
         Insert: {
           created_at?: string
           id?: number
           post?: number | null
-          user?: string | null
+          user_id?: string | null
         }
         Update: {
           created_at?: string
           id?: number
           post?: number | null
-          user?: string | null
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -120,7 +120,7 @@ export type Database = {
           },
           {
             foreignKeyName: "Ties_user_fkey"
-            columns: ["user"]
+            columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
@@ -132,21 +132,18 @@ export type Database = {
           created_at: string
           email: string
           id: string
-          ties: number[]
           username: string
         }
         Insert: {
           created_at?: string
           email: string
           id?: string
-          ties: number[]
           username: string
         }
         Update: {
           created_at?: string
           email?: string
           id?: string
-          ties?: number[]
           username?: string
         }
         Relationships: []

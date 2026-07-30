@@ -1,13 +1,20 @@
 'use client'
-import { TieIn } from "@/actions/tie-in";
+import { TieIn, UnTie } from "@/actions/tie-in";
 
-const TieButton = ({ user, post }: { user: string, post: number }) => {
+const TieButton = ({ user, post, tiedIn }: { user: string, post: number, tiedIn: boolean }) => {
   return (
     <>
       {user &&
-        <div onClick={() => TieIn({ user: user, post: post })}>
-          Tie in!</div>
+        tiedIn ?
+        <div className="linkButton" onClick={() => UnTie({ user: user, post: post })}>
+          Untie!
+        </div >
+        :
+        <div className="linkButton" onClick={() => TieIn({ user: user, post: post })}>
+          Tie in!
+        </div>
       }
+
     </>
   )
 }

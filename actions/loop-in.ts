@@ -6,7 +6,17 @@ export const LoopIn = async ({ user, post }: { user: string, post: number }) => 
 
   const { data, error } = await supabase
     .from("loops")
-    .insert({user: user, post: post})
+    .insert({user_id: user, post: post})
+}
 
-  console.log(data, error)
+export const UnLoop = async ({ user, post }: { user: string, post: number }) => {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from("loops")
+    .delete()
+    .eq("user_id", user)
+    .eq("post", post)
+  
+    console.log("Data, ", data, "Error: ", error)
 }

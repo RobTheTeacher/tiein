@@ -30,14 +30,30 @@ export const getUserPosts = async (profile: string) => {
 
 export const getUserTies = async (userId: string) => {
   const supabase = await createClient()
-  const { data, error } = await supabase.from("ties").select('post("id", "title", "slug", "image")').eq('user', userId)
+  const { data, error } = await supabase.from("ties").select('post("id", "title", "slug", "image")').eq('user_id', userId)
   if (error) throw error
   return data
 }
 
 export const getUserLoops = async (userId: string) => {
   const supabase = await createClient()
-  const { data, error } = await supabase.from("loops").select('post("id", "title", "slug", "image")').eq('user', userId)
+  const { data, error } = await supabase.from("loops").select('post("id", "title", "slug", "image")').eq('user_id', userId)
   if (error) throw error
   return data
+}
+
+export const checkUserTies = async (userId: string, postId: number) => {
+  const supabase = await createClient()
+  const { data, error } = await supabase.from("ties").select('post').eq('user_id', userId).eq('post', postId)
+  if (error) throw error
+  return data.length > 0 ? true : false
+}
+
+export const checkUserLoops = async (userId: string, postId: number) => {
+  const supabase = await createClient()
+  const { data, error } = await supabase.from("loops").select('post').eq('user_id', userId).eq('post', postId)
+  if (error) throw error
+
+  console.log("Data: ", data)
+  return data.length > 0 ? true : false
 }
