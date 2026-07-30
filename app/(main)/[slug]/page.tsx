@@ -44,7 +44,6 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
             : <></>
           }
         </div>
-
       }
     </>
   )
