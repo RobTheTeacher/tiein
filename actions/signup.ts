@@ -8,7 +8,7 @@ export const SignUp = async (userdata: z.infer<typeof SignUpSchema>) => {
   const supabase = await createClient()
 
   const parsedData = SignUpSchema.parse(userdata)
-
+console.log("Userdata", userdata)
   const { data: { user }, error } = await supabase.auth.signUp({
     email: parsedData.email,
     password: parsedData.password,
@@ -25,7 +25,7 @@ export const SignUp = async (userdata: z.infer<typeof SignUpSchema>) => {
 
     const { data, error } = await supabase
       .from("users")
-      .insert([{ id: user.id, email: user.email, username: user.user_metadata.display_name }])
+      .insert([{ id: user.id, email: user.email, username: user.user_metadata.display_name, state: parsedData.state}])
 
     if (error && error.code === "23505") throw new Error("Username is taken, choose another!")
   console.log("Sign up data", error)

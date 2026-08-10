@@ -54,6 +54,13 @@ export const checkUserLoops = async (userId: string, postId: number) => {
   const { data, error } = await supabase.from("loops").select('post').eq('user_id', userId).eq('post', postId)
   if (error) throw error
 
-  console.log("Data: ", data)
   return data.length > 0 ? true : false
+}
+
+export const getLocations = async () => {
+  const supabase = await createClient()
+  const { data, error } = await supabase.from("locations").select().order('id')
+  
+  if (error) throw error
+  return data
 }

@@ -14,24 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      locations: {
+        Row: {
+          created_at: string
+          id: number
+          location: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          location: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          location?: string
+        }
+        Relationships: []
+      }
       loops: {
         Row: {
           created_at: string
           id: number
           post: number | null
-          user: string | null
+          user_id: string | null
         }
         Insert: {
           created_at?: string
           id?: number
           post?: number | null
-          user?: string | null
+          user_id?: string | null
         }
         Update: {
           created_at?: string
           id?: number
           post?: number | null
-          user?: string | null
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -43,7 +61,7 @@ export type Database = {
           },
           {
             foreignKeyName: "loops_user_fkey"
-            columns: ["user"]
+            columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
@@ -59,6 +77,7 @@ export type Database = {
           id: number
           image: string | null
           slug: string
+          state: number | null
           title: string
         }
         Insert: {
@@ -69,6 +88,7 @@ export type Database = {
           id?: number
           image?: string | null
           slug: string
+          state?: number | null
           title: string
         }
         Update: {
@@ -79,6 +99,7 @@ export type Database = {
           id?: number
           image?: string | null
           slug?: string
+          state?: number | null
           title?: string
         }
         Relationships: [
@@ -87,6 +108,13 @@ export type Database = {
             columns: ["author"]
             isOneToOne: false
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_state_fkey"
+            columns: ["state"]
+            isOneToOne: false
+            referencedRelation: "locations"
             referencedColumns: ["id"]
           },
         ]
@@ -132,21 +160,32 @@ export type Database = {
           created_at: string
           email: string
           id: string
+          state: number | null
           username: string
         }
         Insert: {
           created_at?: string
           email: string
           id?: string
+          state?: number | null
           username: string
         }
         Update: {
           created_at?: string
           email?: string
           id?: string
+          state?: number | null
           username?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "users_state_fkey"
+            columns: ["state"]
+            isOneToOne: false
+            referencedRelation: "locations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

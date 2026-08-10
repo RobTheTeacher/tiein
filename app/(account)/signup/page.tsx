@@ -2,8 +2,12 @@ import Link from "next/link"
 import SignUpForm from "./form"
 import Image from 'next/image'
 import About from "@/components/About"
+import { getLocations } from "@/utils/supabase/queries"
 
-const SignUpPage = () => {
+const SignUpPage = async () => {
+  const states  = await getLocations()
+  console.log(states[1])
+  
   return (
     <div className="m-8">
       <About />
@@ -19,7 +23,7 @@ const SignUpPage = () => {
             priority
           />
         </Link>
-        <SignUpForm />
+        <SignUpForm states={states} />
         <p className="text-center mb-4">Already have an account?</p>
         <Link href="/login" className="block text-center">Log In</Link>
       </div>
