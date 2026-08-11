@@ -20,6 +20,18 @@ export const getSinglePost = async (slug: string) => {
     .single()
 }
 
+export const getUserName = async (profile: string):Promise<string | undefined> => {
+  const supabase = await createClient()
+
+  const {data, error} = await supabase.from("users")
+    .select('username')
+    .eq('id', profile)
+    .single()
+
+    if (error) throw error
+    return data.username
+}
+
 export const getUserPosts = async (profile: string) => {
   const supabase = await createClient()
 
