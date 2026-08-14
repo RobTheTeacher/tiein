@@ -1,11 +1,6 @@
-
 import LogInButton from '@/app/(account)/login/button';
-import LogOutButton from '@/app/(account)/logout';
 import SignUpButton from '@/app/(account)/signup/button';
-import CreatePostButton from '@/app/(main)/create/button';
 import { createClient } from '@/utils/supabase/serverClient';
-import { DotsThreeCircleVerticalIcon } from "@phosphor-icons/react/dist/ssr";
-import Link from 'next/link'
 import MobileMenu from './mobileMenu';
 
 const AccountLinks = async () => {

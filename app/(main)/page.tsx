@@ -1,3 +1,4 @@
+import Posts from "@/components/Posts";
 import { getHomePosts, HomePostType } from "@/utils/supabase/queries";
 import Link from "next/link";
 
@@ -7,6 +8,8 @@ export default async function Home() {
   return (
     <>
       <div className="min-h-screen font-sans">
+        <Posts />
+        <p>After</p>
         <main className="flex flex-co py-4 px-4 md:px-16 sm:items-start">
           <div className="w-full flex flex-wrap gap-8">
             {data && data.map(({ id, title, author, slug, image }) =>
@@ -18,6 +21,7 @@ export default async function Home() {
                 <p className="text-right my-2 p-2"><Link href={`/profile/${author?.id}`}> Posted by {author?.username}</Link></p>
               </div>)}
           </div>
+          <input aria-label="Date" type="date" />
         </main>
       </div>
     </>

@@ -11,6 +11,14 @@ export const getHomePosts = async () => {
     .order('created_at', { ascending: false })
 }
 
+export const getLocationPosts = async (location: number) => {
+  const supabase = createClient();
+  return await supabase.from('posts')
+    .select('id, title, slug, author("username", "id"), image')
+    .eq("state", location)
+    .order('created_at', { ascending: false })
+}
+
 export const getSinglePost = async (slug: string) => {
   const supabase = await createClient()
 
@@ -30,6 +38,18 @@ export const getUserName = async (profile: string):Promise<string | undefined> =
 
     if (error) throw error
     return data.username
+}
+
+export const getUserLocation = async(userId: string) => {
+  const supabase = await createClient()
+
+  const {data, error} = await supabase.from("users")
+    .select('state')
+    .eq('id', userId)
+    .single()
+
+    if (error) throw error
+    return data.state
 }
 
 export const getUserPosts = async (profile: string) => {
@@ -76,3 +96,4 @@ export const getLocations = async () => {
   if (error) throw error
   return data
 }
+
