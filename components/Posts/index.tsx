@@ -1,17 +1,26 @@
 'use client'
 
-import { getHomePosts, getUserLocation, HomePostType, getLocationPosts } from "@/utils/supabase/queries";
+import { getHomePosts, getUserLocation, HomePostType, getLocationPosts, getLocations } from "@/utils/supabase/queries";
 import { createClient } from "@/utils/supabase/browserClient";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Post from "./Post";
+
+type State = {
+  created_at: string;
+  id: number;
+  location: string;
+}
 
 const Posts = () => {
   const [location, setLocation] = useState<number | null>(null)
   const [posts, setPosts] = useState<HomePostType | null>(null)
 
+  const [locationPosts, setLocationPosts] = useState<HomePostType | null>(null)
+  const [states, setStates] = useState<State[] | null>(null)
+  const [locationName, setLocationName] = useState<string | null>(null)
   useEffect(() => {
     const getUserState = async () => {
-
       const supabase = await createClient()
       const { data: { user } } = await supabase.auth.getUser();
 
@@ -20,32 +29,55 @@ const Posts = () => {
     }
 
     getUserState()
-  
-    const fetchLocationPosts = async () => {
-      if (location) {
-        const { data, error } = await getLocationPosts(location);
-        setPosts(data)
-      } else {
-        const { data, error } = await getHomePosts();
-        setPosts(data
-        )
+
+    const fetchPosts = async () => {
+      const { data, error } = await getHomePosts();
+      setPosts(data)
+    }
+    fetchPosts()
+
+    const getStates = async () => {
+      const data = await getLocations()
+      setStates(data)
+    }
+
+    getStates()
+  }, [])
+
+  useEffect(() => {
+    const getPostsByLocation = async () => {
+      const x = await posts
+      const y = await location
+    
+      if (x) {
+        if (y) {
+          setLocationPosts(posts!.filter(item => item.state === location))
+
+          const currentState = states?.find(state => state.id === location)
+          setLocationName(currentState ? currentState.location : null)
+        } else setLocationPosts(posts)
       }
     }
 
-    fetchLocationPosts()
+    getPostsByLocation()
   }, [location])
-
   return (
     <div className="w-full flex flex-wrap gap-8">
-      {location && <p>location:{location}</p>}
-      {posts && posts.map(({ id, title, author, slug, image }) =>
-        <div key={id} className="basis-[calc(100%/2-32px/2)] md:basis-[calc(100%/3-32px*2/3)] flex flex-col border-1 rounded-xl">
-          <Link key={id} href={`/${slug}`}>
-            <div className="w-full aspect-square flex align-center justify-center overflow-hidden">{image && <img className=" w-full h-full object-contain" src={image} alt={title} />}</div>
-            <h2 className="text-2xl my-2 p-2">{title}</h2>
-          </Link>
-          <p className="text-right my-2 p-2"><Link href={`/profile/${author?.id}`}> Posted by {author?.username}</Link></p>
-        </div>)}
+      {states &&
+        <div>{locationPosts && <p>{locationPosts.length}</p>}
+          <p>Select your state</p>
+          <select onChange={e => setLocation(parseInt(e.target.value))}>
+            {states.map(state => <option key={state.id} value={state.id}>{state.location}</option>)}
+            <option key={null} value={undefined}>Clear</option>
+          </select>
+        </div>
+      }
+      {location && <h2>Events in {locationName}</h2>}
+      {locationPosts && locationPosts.map((post, index) =>
+        <div key={index} className="basis-[calc(100%/2-32px/2)] md:basis-[calc(100%/3-32px*2/3)] flex flex-col border-1 rounded-xl">
+          <Post {...post} />
+        </div>
+      )}
     </div>
   )
 }

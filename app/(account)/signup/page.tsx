@@ -6,7 +6,6 @@ import { getLocations } from "@/utils/supabase/queries"
 
 const SignUpPage = async () => {
   const states  = await getLocations()
-  console.log(states[1])
   
   return (
     <div className="m-8">

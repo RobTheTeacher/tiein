@@ -9,7 +9,7 @@ export default async function Home() {
     <>
       <div className="min-h-screen font-sans">
         <Posts />
-        <p>After</p>
+        <p>After klh lkh lkjl ljg ljkg lkjg lkjg ljg </p>
         <main className="flex flex-co py-4 px-4 md:px-16 sm:items-start">
           <div className="w-full flex flex-wrap gap-8">
             {data && data.map(({ id, title, author, slug, image }) =>
