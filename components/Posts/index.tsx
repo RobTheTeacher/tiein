@@ -15,10 +15,9 @@ type State = {
 const Posts = () => {
   const [location, setLocation] = useState<number | null>(null)
   const [posts, setPosts] = useState<HomePostType | null>(null)
-
   const [locationPosts, setLocationPosts] = useState<HomePostType | null>(null)
   const [states, setStates] = useState<State[] | null>(null)
-  const [locationName, setLocationName] = useState<string | null>(null)
+  const [locationName, setLocationName] = useState<string | null>()
   useEffect(() => {
     const getUserState = async () => {
       const supabase = await createClient()
@@ -46,15 +45,15 @@ const Posts = () => {
 
   useEffect(() => {
     const getPostsByLocation = async () => {
-      const x = await posts
-      const y = await location
-    
-      if (x) {
-        if (y) {
-          setLocationPosts(posts!.filter(item => item.state === location))
+      const loadedPosts = await posts
+      const loadedLocation = await location
+
+      if (loadedPosts) {
+        if (loadedLocation) {
+          setLocationPosts(loadedPosts!.filter(item => item.state === location))
 
           const currentState = states?.find(state => state.id === location)
-          setLocationName(currentState ? currentState.location : null)
+          setLocationName(currentState ? currentState.location : "Every where")
         } else setLocationPosts(posts)
       }
     }
@@ -64,20 +63,24 @@ const Posts = () => {
   return (
     <div className="w-full flex flex-wrap gap-8">
       {states &&
-        <div>{locationPosts && <p>{locationPosts.length}</p>}
+        <div>
           <p>Select your state</p>
           <select onChange={e => setLocation(parseInt(e.target.value))}>
+            <option key={null} value={undefined}>Everywhere</option>
             {states.map(state => <option key={state.id} value={state.id}>{state.location}</option>)}
-            <option key={null} value={undefined}>Clear</option>
           </select>
         </div>
       }
-      {location && <h2>Events in {locationName}</h2>}
-      {locationPosts && locationPosts.map((post, index) =>
+      <h2>Events in {location ? locationName : "Everywhere"}</h2>
+      {locationPosts ? locationPosts.map((post, index) =>
         <div key={index} className="basis-[calc(100%/2-32px/2)] md:basis-[calc(100%/3-32px*2/3)] flex flex-col border-1 rounded-xl">
           <Post {...post} />
         </div>
-      )}
+      ) : posts && posts.map((post, index) =>
+        <div key={index} className="basis-[calc(100%/2-32px/2)] md:basis-[calc(100%/3-32px*2/3)] flex flex-col border-1 rounded-xl">
+          <Post {...post} />
+        </div>)
+      }
     </div>
   )
 }

@@ -1,23 +1,36 @@
+'use client'
 import LogInButton from '@/app/(account)/login/button';
 import SignUpButton from '@/app/(account)/signup/button';
-import { createClient } from '@/utils/supabase/serverClient';
 import MobileMenu from './mobileMenu';
+import LogOutButton from '@/app/(account)/logout';
+import CreatePostButton from '@/app/(main)/create/button';
+import { useState } from 'react';
+import { DotsThreeCircleVerticalIcon } from '@phosphor-icons/react';
 
-const AccountLinks = async () => {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser();
+const AccountLinks = ({ loggedIn }: { loggedIn: boolean }) => {
+  const [openMenu, setOpenMenu] = useState<boolean>(false)
+  const handleClick = (): void => {
+    setOpenMenu(!openMenu)
+  }
+
   return (
     <>
-      {user &&
-        <MobileMenu name={user.user_metadata.display_name} id={user.id} />
-      }
-      {!user &&
-
-        <div className="flex flex-col gap-4 p-4 md:flex-row">
-          <LogInButton />
-          <SignUpButton />
-        </div>
-      }
+      <div className={`${openMenu ? 'rotate-90' : ''} transition flex relative flex-col`}>
+        <DotsThreeCircleVerticalIcon onClick={handleClick} size={32} className="md:hidden my-2 self-center text-center" />
+      </div>
+      <div className={`absolute top-[95px] h-[calc(100vh-95px)] bottom-0 bg-black flex-col  transition-[left] flex-1/4 justify-start gap-6 p-4 w-full md:w-auto md:flex-row md:flex md:static md:h-auto md:flex-end
+        ${openMenu ? 'left-0 flex' : 'left-[100vw] hidden'}
+        `}>
+        {loggedIn ?
+          <>
+            <LogOutButton />
+            <CreatePostButton />
+          </> : <>
+            <LogInButton />
+            <SignUpButton />
+          </>
+        }
+      </div>
     </>
   )
 }
