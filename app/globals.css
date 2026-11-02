@@ -32,7 +32,7 @@ body {
 .linkButton:hover {@apply text-dark bg-yellow}
 
 .pageTitle {@apply text-4xl text-center}
-
+.subTitle {@apply text-3xl text-center}
 .textInput,
 .createInput {@apply block bg-white text-black font-bold p-2 mb-4 cursor-pointer}
 
