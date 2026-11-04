@@ -23,7 +23,7 @@ const LogInForm = () => {
         {errors.password && <p>{errors.password.message}</p>}
         <button type="submit" className="linkButton my-8">Tie In &#8594;</button>
       </form>
-      {error && <p className="text-white">{error.message}</p>}
+      {error && <p className="text-center mb-2 text-orange">{error.message}</p>}
     </>
   )
 }

@@ -6,9 +6,8 @@ import { redirect } from "next/navigation"
 
 export const SignUp = async (userdata: z.infer<typeof SignUpSchema>) => {
   const supabase = await createClient()
-
   const parsedData = SignUpSchema.parse(userdata)
-console.log("Userdata", userdata)
+
   const { data: { user }, error } = await supabase.auth.signUp({
     email: parsedData.email,
     password: parsedData.password,

@@ -56,11 +56,9 @@ const CreatePostPage = () => {
       {error && <p className="text-4xl text-white">{error.message}</p>}
 
       <p>To Do:</p>
-      <p>Slugify</p>
-      <p>Image Upload</p>
       <p>Multiple Images upload</p>
       <p>Display the images</p>
-      <p>WORKS WITH HARD CODED TITLE ANDD SLUG, CHECK THE SCHEMA??</p>
+      <p>Edit page</p>
     </div>
   )
 }

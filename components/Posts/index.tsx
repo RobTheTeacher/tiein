@@ -80,7 +80,7 @@ const Posts = () => {
         }
         <h2 className="pageTitle mt-16">{`Events in ${locationName}`}</h2>
       </div>
-      {loading ? <img src="loading.gif" alt="loading..." /> :
+      {loading ? <img src="heart.gif" alt="loading..." /> :
         <div className="flex p-4 justify-start gap-4 flex-wrap">
           {locationPosts && locationPosts.length ? locationPosts.map((post, index) =>
             <div key={index} className="basis-[calc(100%/2-16px/2)] md:basis-[calc(100%/3-32px*2/3)] flex flex-col border-1 rounded-xl">

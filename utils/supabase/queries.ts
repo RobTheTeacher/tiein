@@ -2,8 +2,6 @@ import { type QueryData } from "@supabase/supabase-js";
 import { createClient } from "./browserClient"
 import { createServerClient } from "@supabase/ssr";
 
-export type HomePostType = QueryData<ReturnType<typeof getHomePosts>>
-
 export const getHomePosts = async () => {
   const supabase = createClient();
   return await supabase.from('posts')
@@ -91,9 +89,10 @@ export const checkUserLoops = async (userId: string, postId: number) => {
 
 export const getLocations = async () => {
   const supabase = await createClient()
-  const { data, error } = await supabase.from("locations").select().order('id')
-  
+  const {data, error} = await supabase.from("locations").select().order('id')
   if (error) throw error
   return data
 }
+
+export type HomePostType = QueryData<ReturnType<typeof getHomePosts>>
 

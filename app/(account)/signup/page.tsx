@@ -1,3 +1,4 @@
+
 import Link from "next/link"
 import SignUpForm from "./form"
 import Image from 'next/image'
@@ -10,21 +11,21 @@ const SignUpPage = async () => {
   return (
     <div className="m-8">
       <About />
-      <div className="m-auto max-w-3xl">
+      <div className="m-auto max-w-[550px]">
         <h1 className="pageTitle">Sign up to</h1>
-        <Link className="block my-12" href="/">
+        <Link className="block mb-12" href="/">
           <Image
             className="dark:invert m-auto mt-8"
-            src="/logo.png"
+            src="/tie-in-logo.gif"
             alt="tie in logo"
-            width={300}
-            height={300}
+            width={800}
+            height={500}
             priority
           />
         </Link>
-        <SignUpForm states={states} />
+        <SignUpForm locations={states} />
         <p className="text-center mb-4">Already have an account?</p>
-        <Link href="/login" className="block text-center">Log In</Link>
+        <Link href="/login" className="block text-center text-yellow">Log In</Link>
       </div>
     </div>
   )
