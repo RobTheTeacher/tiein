@@ -1,7 +1,6 @@
 'use client'
 import LogInButton from '@/app/(account)/login/button';
 import SignUpButton from '@/app/(account)/signup/button';
-import MobileMenu from './mobileMenu';
 import LogOutButton from '@/app/(account)/logout';
 import CreatePostButton from '@/app/(main)/create/button';
 import { useState } from 'react';
