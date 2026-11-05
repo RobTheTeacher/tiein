@@ -11,19 +11,19 @@ export const CreatePost = async (userdata: z.infer<typeof PostSchema>) => {
    const supabase = await createClient()
    const {data: {user}} = await supabase.auth.getUser()
    if (!user) {throw new Error("Not authorised")}
+
    const parsedData = PostSchema.parse(userdata)
    const slug = slugify(parsedData.title)
-
    const imageFile = userdata.image?.get('image')
-console.log("Slug: ", imageFile)
-   if(!(imageFile instanceof File) && imageFile !== null || undefined) {
+
+   if (!(imageFile instanceof File) && imageFile !== null && imageFile !== "undefined") {
     throw new Error("Malformed Image file")
    }
 
-   const publicImageUrl:string | null = imageFile ? await uploadImage(imageFile) : null;
-   
+   const publicImageUrl = (imageFile && imageFile !== "undefined") ? await uploadImage(imageFile) : null
+
    const {error} = await supabase.from("posts")
-    .insert([{"content": parsedData.content, author: user.id, title: parsedData.title, image: publicImageUrl, slug: slug}])
+    .insert([{"content": parsedData.content, author: user.id, title: parsedData.title, image: publicImageUrl, slug: slug, date: parsedData.date}])
     .single()
     .throwOnError()
 

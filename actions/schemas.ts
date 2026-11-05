@@ -21,7 +21,8 @@ export const PasswordSchema = z.object({
 })
 
 export const PostSchema = z.object({
-  content: z.string(),
-  title: z.string(),
-  image: z.instanceof(FormData)
+  content: z.string().optional(),
+  title: z.string().min(5, "The title must have at least 5 characters"),
+  image: z.instanceof(FormData),
+  date: z.coerce.date("Please select a date")
 })

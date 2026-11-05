@@ -1,8 +1,6 @@
-import Image from "next/image"
 import Link from 'next/link'
 import AccountLinks from "./accountLinks"
 import { createClient } from "@/utils/supabase/serverClient"
-import MobileMenu from "./mobileMenu"
 
 const Header = async() => {
     const supabase = await createClient()
@@ -14,14 +12,12 @@ const Header = async() => {
         {user && <div className="text-3xl text-center my-4 md.text-left">Welcome <Link href={`/profile/${user.id}`}>{user.user_metadata.display_name}</Link></div>}
       </div>
       <Link className="flex-2/4 flex justify-center order-2" href="/">
-        <Image
+        <img
           className="dark:invert"
           src="/tie-in-logo.gif"
           alt="Tiein Logo"
           width={500}
-          height={300}
-          priority
-        />
+          height={300} />
       </Link>
       <AccountLinks loggedIn={user ? true : false} />
     </div>
