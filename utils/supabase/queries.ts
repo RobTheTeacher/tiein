@@ -5,14 +5,14 @@ import { createServerClient } from "@supabase/ssr";
 export const getHomePosts = async () => {
   const supabase = createClient();
   return await supabase.from('posts')
-    .select('id, title, slug, author("username", "id"), image, state')
+    .select('id, title, slug, author("username", "id"), image, state, date')
     .order('created_at', { ascending: false })
 }
 
 export const getLocationPosts = async (location: number) => {
   const supabase = createClient();
   return await supabase.from('posts')
-    .select('id, title, slug, author("username", "id"), image')
+    .select('id, title, slug, author("username", "id"), image, date')
     .eq("state", location)
     .order('created_at', { ascending: false })
 }
@@ -21,7 +21,7 @@ export const getSinglePost = async (slug: string) => {
   const supabase = await createClient()
 
   return await supabase.from("posts")
-    .select('title, image, content, slug, author("username","id"), id')
+    .select('title, image, content, slug, author("username","id"), id, date, time')
     .eq('slug', slug)
     .single()
 }

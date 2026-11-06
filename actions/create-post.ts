@@ -23,7 +23,7 @@ export const CreatePost = async (userdata: z.infer<typeof PostSchema>) => {
    const publicImageUrl = (imageFile && imageFile !== "undefined") ? await uploadImage(imageFile) : null
 
    const {error} = await supabase.from("posts")
-    .insert([{"content": parsedData.content, author: user.id, title: parsedData.title, image: publicImageUrl, slug: slug, date: parsedData.date}])
+    .insert([{...parsedData, author: user.id, image: publicImageUrl, slug: slug}])
     .single()
     .throwOnError()
 

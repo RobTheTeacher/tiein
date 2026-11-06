@@ -7,7 +7,7 @@ import Post from "./Post";
 import StateSelectOption from "../StateSelect";
 import { CaretDownIcon } from "@phosphor-icons/react";
 
-type State = {
+type StateType = {
   created_at: string;
   id: number;
   location: string;
@@ -18,7 +18,7 @@ const Posts = () => {
   const [location, setLocation] = useState<number | null>(null)
   const [posts, setPosts] = useState<HomePostType | null>(null)
   const [locationPosts, setLocationPosts] = useState<HomePostType | null>(null)
-  const [states, setStates] = useState<State[] | null>(null)
+  const [states, setStates] = useState<StateType[] | null>(null)
   const [locationName, setLocationName] = useState<string | null>("Every Where")
   const [openStates, setOpenStates] = useState<boolean>(false)
 
@@ -72,10 +72,6 @@ const Posts = () => {
             <div className={`${openStates ? "block" : "hidden"} box-border overflow-hidden bg-dark p-4`}><StateSelectOption key={null} id={null} optionName={"Every Where"} updateFunction={setStateOption} />
               {states.map((state, index) => <StateSelectOption key={index} id={state.id} optionName={state.location} updateFunction={setStateOption} />)}
             </div>
-            {/*<select onChange={e => setLocation(parseInt(e.target.value))}>
-                  <option key={null} value={undefined}>Everywhere</option>
-                  {states.map(state => <option key={state.id} value={state.id}>{state.location}</option>)}
-                </select>*/}
           </div>
         }
         <h2 className="pageTitle mt-16">{`Events in ${locationName}`}</h2>
