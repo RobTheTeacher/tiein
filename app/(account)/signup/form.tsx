@@ -1,11 +1,9 @@
 'use client'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm} from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SignUp } from "@/actions/signup"
 import { SignUpSchema } from '@/actions/schemas'
-import Select from 'react-select'
-import { useState } from 'react'
 
 type StateType = {
   id: number,
@@ -13,7 +11,6 @@ type StateType = {
 }
 
 const SignUpForm = ({ locations }: { locations: StateType[] }) => {
-  const [selectedValue, setSelectedValue] = useState<number | null>(null)
   const { register, handleSubmit, control, formState: { errors } } = useForm({
     resolver: zodResolver(SignUpSchema),
   })
@@ -21,15 +18,6 @@ const SignUpForm = ({ locations }: { locations: StateType[] }) => {
   const { mutate, error } = useMutation({
     mutationFn: SignUp
   })
-
-  const stateOptions = locations.map(state => ({
-    value: state.id,
-    label: state.location
-  }))
-  const handleChange = (option:number) => {
-        setSelectedValue(option);
-    };
-
 
   return (
     <>
@@ -45,7 +33,7 @@ const SignUpForm = ({ locations }: { locations: StateType[] }) => {
         {locations &&
           <>
             <select {...register('state')}  defaultValue=''
-            className='rounded-lg border border-text-primary/20 bg-background px-3 py-2 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-one'>
+            className='rounded-lg border border-text-primary/20 bg-white px-3 py-2 text-dark focus:outline-none focus:ring-2 focus:ring-accent-one'>
             <option value='' disabled>
             choose state
             </option>
