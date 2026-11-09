@@ -79,7 +79,7 @@ const Posts = () => {
       {loading ? <img src="heart.gif" alt="loading..." /> :
         <div className="flex p-4 justify-start gap-4 flex-wrap">
           {locationPosts && locationPosts.length ? locationPosts.map((post, index) =>
-            <div key={index} className="basis-[calc(100%/2-16px/2)] md:basis-[calc(100%/3-32px*2/3)] flex flex-col border-1 rounded-xl">
+            <div key={index} className="basis-[calc(100%/2-16px/2)] md:basis-[calc(100%/3-32px*2/3)] flex flex-col border-1 rounded-xl overflow-hidden">
               <Post {...post} />
             </div>
           ) : <h2 className="subTitle">{`No events in ${locationName ? locationName : "every where"}. This is an opportunity to get the ball rolling!`}</h2>

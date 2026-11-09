@@ -23,7 +23,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
           <h1 className="text-4xl my-4">{title}</h1>
           <div className=" gap-8">
             <div className="">
-              <img className="w-auto h-full" src={image ? image : '...'} alt={title} />
+              <img className="w-auto h-full" src={image ? image : '/tie-in-logo.gif'} alt={title} />
             </div>
             <div className="my-4">
               <div>{content}</div>
