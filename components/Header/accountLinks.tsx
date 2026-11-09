@@ -3,11 +3,17 @@ import LogInButton from '@/app/(account)/login/button';
 import SignUpButton from '@/app/(account)/signup/button';
 import LogOutButton from '@/app/(account)/logout';
 import CreatePostButton from '@/app/(main)/create/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DotsThreeCircleVerticalIcon } from '@phosphor-icons/react';
+import { usePathname } from 'next/navigation';
 
 const AccountLinks = ({ loggedIn }: { loggedIn: boolean }) => {
   const [openMenu, setOpenMenu] = useState<boolean>(false)
+  const pathname = usePathname()
+
+  useEffect(() => {
+    setOpenMenu(false)
+  }, [pathname])
   const handleClick = (): void => {
     setOpenMenu(!openMenu)
   }
