@@ -24,7 +24,7 @@ const ProfilePage = async ({ params }: { params: Promise<{ id: string }> }) => {
       <h1 className="text-4xl text-center mb-8 mt-8">{threadsTitle}</h1>
       <div className="w-full flex flex-wrap">
         {user && <Menu />}
-        <div className={`${user ? 'basis-4/5 pl-8' : 'w-full'} flex flex-wrap gap-8`}>
+        <div className={`${user ? ' p-4 md:basis-4/5 md:pl-8' : 'w-full'} flex flex-wrap gap-8`}>
           {data && data.map(({ id, title, author, slug, image }, index) =>
             <Link className="basis-[calc(100%/2-32px/2)] md:basis-[calc(100%/3-32px*2/3)] flex flex-col border-1 rounded-xl" key={index} href={`/${slug}`}>
               <div className="w-full aspect-square flex align-center justify-center overflow-hidden">

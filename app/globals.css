@@ -15,8 +15,9 @@ body {
 }
 
 @theme inline {
-  --color-background:  hwb(36 0% 80%);
+  --color-background: #0a0a0a;
   --color-foreground: var(--foreground);
+  --color-cod-gray: #0a0a0a;
   --color-dark: #333;
   --color-orange: #d97706;
   --color-yellow: #f5c518;
