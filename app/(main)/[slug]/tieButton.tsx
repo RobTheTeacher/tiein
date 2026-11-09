@@ -1,20 +1,26 @@
 'use client'
 import { TieIn, UnTie } from "@/actions/tie-in";
+import { useState } from "react";
 
 const TieButton = ({ user, post, tiedIn }: { user: string, post: number, tiedIn: boolean }) => {
+  const [tieIn, setTieIn] = useState<boolean>(tiedIn)
+
+  const handleClick = () => {
+    if (tieIn)
+      UnTie({ user: user, post: post })
+    else
+      TieIn({ user: user, post: post })
+
+    setTieIn(!tieIn)
+  }
+
   return (
     <>
       {user &&
-        tiedIn ?
-        <div className="linkButton" onClick={() => UnTie({ user: user, post: post })}>
-          Untie!
+        <div className="linkButton" onClick={handleClick}>
+          {tieIn ? "Untie!" : "Tie In!"}
         </div >
-        :
-        <div className="linkButton" onClick={() => TieIn({ user: user, post: post })}>
-          Tie in!
-        </div>
       }
-
     </>
   )
 }

@@ -62,7 +62,7 @@ body {
 
 .box{@apply max-w-3xl m-auto my-8 rounded-2xl border-1 border-white p-4}
 
-.linkButton {@apply text-yellow bg-dark font-bold p-4 rounded-2xl cursor-pointer block}
+.linkButton {@apply text-yellow bg-dark font-bold p-4 rounded-2xl cursor-pointer block text-center}
 .linkButton:hover {@apply text-dark bg-yellow}
 
 .pageTitle {@apply text-4xl text-center}

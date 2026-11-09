@@ -20,30 +20,35 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
     <>
       {data &&
         <div className="p-4" >
-          <h1 className="text-4xl my-4">{title}</h1>
-          <div className=" gap-8">
+          {date && <div className="">
+            <div>When: {date}</div>
+            {time && <div>Starts at: {time}</div>}
+          </div>
+          }
+          <h1 className="text-6xl my-8">{title}</h1>
+          <div className="gap-8">
             <div className="">
               <img className="w-auto h-full" src={image ? image : '/tie-in-logo.gif'} alt={title} />
             </div>
-            <div className="my-4">
+            <div className="my-8">
               <div>{content}</div>
             </div>
-            <div className="flex justify-between">
-              {date && <div>When: {date}</div>}
-              {time && <div>Starts at: {time}</div>}
-            </div>
           </div>
-          <h2 className="my-4"><Link href={`/profile/${author?.id}`}> Posted by {author?.username}</Link></h2>
+          <h2 className="my-4 text-right"><Link href={`/profile/${author?.id}`}>Thread created by {author?.username}</Link></h2>
           {user ? user.id !== author?.id &&
-        <div>
-          <div className="flex flex-col md:flex-row gap-4">
-            <TieButton user={user.id} post={id!} tiedIn={tiedIn} />
-            <LoopButton user={user.id} post={id!} loopedIn={loopedIn} />
-          </div>
-        </div>
-        : <></>
-      }
-    </div >
+            <div>
+              <div className="my-8">
+                <h2>Want to follow this event?</h2>
+                <p>Tie in if you are going, or stay in the loop</p>
+                <div className="flex flex-col md:flex-row gap-4 my-4">
+                  <TieButton user={user.id} post={id!} tiedIn={tiedIn} />
+                  <LoopButton user={user.id} post={id!} loopedIn={loopedIn} />
+                </div>
+              </div>
+            </div>
+            : <></>
+          }
+        </div >
       }
     </>
   )

@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("font-sans", inter.variable)}>
-      <body className="relative">
+      <body className="relative max-w-360 m-auto">
         <QueryClientProvider>
           {children}
         </QueryClientProvider>
