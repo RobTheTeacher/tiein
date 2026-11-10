@@ -28,3 +28,7 @@ export const PostSchema = z.object({
   state: z.number("Please select a state").min(1, "Please select a state"),
   time:z.string("Select a starting time")
 })
+
+export const PostWithImageSchema =
+    PostSchema.omit({ image: true })
+      .extend({ image: z.unknown().transform(value => { return value as (FileList) }).optional() })

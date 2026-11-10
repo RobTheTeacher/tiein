@@ -1,7 +1,7 @@
 'use client'
 
-import { getHomePosts, getUserLocation, HomePostType, getLocationPosts, getLocations } from "@/utils/supabase/queries";
-import { createClient } from "@/utils/supabase/browserClient";
+import { getHomePosts, getUserLocation, HomePostType, getLocationPosts, getLocations } from "@/lib/supabase/queries";
+import { createClient } from "@/lib/supabase/browserClient";
 import { useEffect, useState } from "react";
 import Post from "./Post";
 import StateSelectOption from "../StateSelect";

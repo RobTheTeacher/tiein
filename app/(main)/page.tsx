@@ -1,5 +1,5 @@
 import Posts from "@/components/Posts";
-import { getHomePosts, HomePostType } from "@/utils/supabase/queries";
+import { getHomePosts, HomePostType } from "@/lib/supabase/queries";
 import Link from "next/link";
 
 export default async function Home() {

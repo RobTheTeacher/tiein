@@ -3,11 +3,11 @@ import Link from "next/link"
 import SignUpForm from "./form"
 import Image from 'next/image'
 import About from "@/components/About"
-import { getLocations } from "@/utils/supabase/queries"
+import { getLocations } from "@/lib/supabase/queries"
 
 const SignUpPage = async () => {
-  const states  = await getLocations()
-  
+  const states = await getLocations()
+
   return (
     <div className="m-8">
       <About />

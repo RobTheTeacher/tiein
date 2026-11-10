@@ -1,14 +1,14 @@
 'use client'
 
 import { CreatePost } from "@/actions/create-post"
-import { PostSchema } from "@/actions/schemas"
+import { PostSchema, PostWithImageSchema } from "@/actions/schemas"
 import ErrorMessage from "@/components/ErrorMessage"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { Controller, useForm } from "react-hook-form"
 import z from "zod"
 import { CalendarIcon } from "lucide-react";
-import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
@@ -24,12 +24,8 @@ import {
 } from "@/components/ui/select"
 import { TimePicker } from "@/components/reui/time-picker"
 import { useState } from "react"
+import { StateType } from "@/utils/types"
 
-type StateType = {
-  created_at: string;
-  id: number;
-  location: string;
-}
 
 const CreatePostForm = ({ states, homeState }: { states: StateType[], homeState: number | null }) => {
   const [time, setTime] = useState<string | null>("00:00")
@@ -37,10 +33,6 @@ const CreatePostForm = ({ states, homeState }: { states: StateType[], homeState:
     value: state.id,
     label: state.location
   }))
-
-  const PostWithImageSchema =
-    PostSchema.omit({ image: true })
-      .extend({ image: z.unknown().transform(value => { return value as (FileList) }).optional() })
 
   const { register, handleSubmit, control, formState: { errors } } = useForm({
     resolver: zodResolver(PostWithImageSchema),
@@ -116,7 +108,7 @@ const CreatePostForm = ({ states, homeState }: { states: StateType[], homeState:
               </Field>
             )}
           />
-          <div className="w-full flex md:justify-between g-4 md:basis-2/4 ">
+          <div className="w-full flex md:justify-between g-4 md:basis-2/5 md:grow">
             <Controller
               name="date"
               control={control}
@@ -136,7 +128,7 @@ const CreatePostForm = ({ states, homeState }: { states: StateType[], homeState:
               )}
             />
           </div>
-          <div className="w-full max-w-xs">
+          <div className="w-full flex md:justify-between g-4 md:basis-2/5 md:grow">
             <Controller
               name = "time"
               control = {control}
@@ -149,7 +141,7 @@ const CreatePostForm = ({ states, homeState }: { states: StateType[], homeState:
                     className="bg-white text-black pointer-events-auto"
                     id="time"
                     aria-labelledby="time-label"
-                    onValueChange={setTime}  
+                    onValueChange= {setTime}  
                   />
                   {fieldState.invalid && (
                     <FieldError className="text-[1.4rem] text-red-500" errors={[fieldState.error]} />

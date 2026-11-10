@@ -1,5 +1,5 @@
 'use server'
-import { createClient } from "@/utils/supabase/serverClient"
+import { createClient } from "@/lib/supabase/serverClient"
 import { SignUpSchema } from "./schemas"
 import z from "zod"
 import { redirect } from "next/navigation"
@@ -24,11 +24,11 @@ export const SignUp = async (userdata: z.infer<typeof SignUpSchema>) => {
 
     const { data, error } = await supabase
       .from("users")
-      .insert([{ id: user.id, email: user.email, username: user.user_metadata.display_name, state: parsedData.state}])
+      .insert([{ id: user.id, email: user.email, username: user.user_metadata.display_name, state: parsedData.state }])
 
     if (error && error.code === "23505") throw new Error("Username is taken, choose another!")
-  console.log("Sign up data", error)
-    }
+    console.log("Sign up data", error)
+  }
 
   redirect("/")
 }

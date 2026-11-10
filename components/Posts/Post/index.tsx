@@ -1,4 +1,4 @@
-import { HomePostType } from "@/utils/supabase/queries";
+import { HomePostType } from "@/lib/supabase/queries";
 import Link from "next/link";
 
 type ArrayElement<T> = T extends (infer U)[] ? U : never
@@ -7,7 +7,7 @@ type PostPropsType = ArrayElement<HomePostType>;
 const Post = ({ id, title, author, slug, image, date }: PostPropsType) => {
   return (
     <>
-      <Link key={id} href={`/${slug}`}>
+      <Link key={id} href={`/${id}-${slug}`}>
         {date && <div className="p-4 bg-dark">{date}</div>}
         <div className="w-full flex aspect-square align-center justify-center ">
           {image && <img className=" w-full h-full object-cover" src={image} alt={title} />}</div>

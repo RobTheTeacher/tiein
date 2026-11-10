@@ -1,12 +1,12 @@
 'use server'
-import { createClient } from "@/utils/supabase/serverClient"
+import { createClient } from "@/lib/supabase/serverClient"
 
 export const LoopIn = async ({ user, post }: { user: string, post: number }) => {
   const supabase = await createClient()
 
   const { data, error } = await supabase
     .from("loops")
-    .insert({user_id: user, post: post})
+    .insert({ user_id: user, post: post })
 }
 
 export const UnLoop = async ({ user, post }: { user: string, post: number }) => {
@@ -17,6 +17,6 @@ export const UnLoop = async ({ user, post }: { user: string, post: number }) => 
     .delete()
     .eq("user_id", user)
     .eq("post", post)
-  
-    console.log("Data, ", data, "Error: ", error)
+
+  console.log("Data, ", data, "Error: ", error)
 }

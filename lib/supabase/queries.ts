@@ -17,12 +17,21 @@ export const getLocationPosts = async (location: number) => {
     .order('created_at', { ascending: false })
 }
 
-export const getSinglePost = async (slug: string) => {
+export const getSinglePost = async (id: number) => {
   const supabase = await createClient()
 
   return await supabase.from("posts")
-    .select('title, image, content, slug, author("username","id"), id, date, time')
-    .eq('slug', slug)
+    .select('title, image, content, slug, author("username","id"), state("id", "location"), id, date, time')
+    .eq('id', id)
+    .single()
+}
+
+export const getSinglePostToEdit = async (id: number) => {
+  const supabase = await createClient()
+
+  return await supabase.from("posts")
+    .select('title, image, content, slug, author("username","id"), state, id, date, time')
+    .eq('id', id)
     .single()
 }
 
