@@ -14,7 +14,6 @@ const CreatePostPage = async () => {
       <CreatePostForm states={locations} homeState={homeState} />
     </div>
   )
-
 }
 
 export default CreatePostPage

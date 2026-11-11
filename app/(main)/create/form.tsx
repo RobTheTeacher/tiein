@@ -1,19 +1,20 @@
 'use client'
 
 import { CreatePost } from "@/actions/create-post"
-import { PostSchema, PostWithImageSchema } from "@/actions/schemas"
+import { PostWithImageSchema } from "@/actions/schemas"
 import ErrorMessage from "@/components/ErrorMessage"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { Controller, useForm } from "react-hook-form"
-import z from "zod"
 import { CalendarIcon } from "lucide-react";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
 import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/components/ui/input-group";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import {
   Select,
   SelectContent,
@@ -25,6 +26,7 @@ import {
 import { TimePicker } from "@/components/reui/time-picker"
 import { useState } from "react"
 import { StateType } from "@/utils/types"
+import { format } from "date-fns"
 
 
 const CreatePostForm = ({ states, homeState }: { states: StateType[], homeState: number | null }) => {
@@ -113,26 +115,37 @@ const CreatePostForm = ({ states, homeState }: { states: StateType[], homeState:
               name="date"
               control={control}
               render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid} className="w-full">
-                  <FieldLabel htmlFor="date">When is the event?</FieldLabel>
-                  <InputGroup className="bg-white text-black font-bold">
-                    <InputGroupInput className="p- text-[1.4rem]" onChange={(value) => field.onChange(value)} id="date" type="date" />
-                    <InputGroupAddon>
-                      <CalendarIcon className="w-8 pointer" aria-hidden="true" />
-                    </InputGroupAddon>
-                  </InputGroup>
-                  {fieldState.invalid && (
-                    <FieldError className="text-[1.4rem] text-red-500" errors={[fieldState.error]} />
-                  )}
+                <Field>
+                  <FieldLabel>When {field.value ? format(field.value, "PPP") : 'is the event?'}</FieldLabel>
+                  <Popover>
+                    <PopoverTrigger
+                      render={
+                        <Button
+                          variant="outline"
+                          data-empty={!field.value}
+                          className="justify-start text-left font-normal data-[empty=true]:text-muted-foreground"
+                        />
+                      }
+                    >
+                      <CalendarIcon />
+                      {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                    </PopoverTrigger>
+                    {fieldState.invalid && (
+                      <FieldError className="text-[1.4rem] text-red-500" errors={[fieldState.error]} />
+                    )}
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar mode="single" selected={field.value} onDayClick={field.onChange} />
+                    </PopoverContent>
+                  </Popover>
                 </Field>
               )}
             />
           </div>
           <div className="w-full flex md:justify-between g-4 md:basis-2/5 md:grow">
             <Controller
-              name = "time"
-              control = {control}
-              render = {({ field, fieldState }) =>
+              name="time"
+              control={control}
+              render={({ field, fieldState }) =>
                 <Field>
                   <FieldLabel id="time-label" htmlFor="time">
                     Event starts: {time}
@@ -141,7 +154,7 @@ const CreatePostForm = ({ states, homeState }: { states: StateType[], homeState:
                     className="bg-white text-black pointer-events-auto"
                     id="time"
                     aria-labelledby="time-label"
-                    onValueChange= {setTime}  
+                    onValueChange={setTime}
                   />
                   {fieldState.invalid && (
                     <FieldError className="text-[1.4rem] text-red-500" errors={[fieldState.error]} />

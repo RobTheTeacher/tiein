@@ -1,28 +1,10 @@
 import Posts from "@/components/Posts";
-import { getHomePosts, HomePostType } from "@/lib/supabase/queries";
-import Link from "next/link";
 
 export default async function Home() {
-  const { data, error } = await getHomePosts();
-
   return (
     <>
       <div className="min-h-screen font-sans">
         <Posts />
-        {/*<p>After klh lkh lkjl ljg ljkg lkjg lkjg ljg </p>
-        <main className="flex flex-co py-4 px-4 md:px-16 sm:items-start">
-          <div className="w-full flex flex-wrap gap-8">
-            {data && data.map(({ id, title, author, slug, image }) =>
-              <div key = {id} className="basis-[calc(100%/2-32px/2)] md:basis-[calc(100%/3-32px*2/3)] flex flex-col border-1 rounded-xl">
-                <Link  key={id} href={`/${slug}`}>
-                  <div className="w-full aspect-square flex align-center justify-center overflow-hidden">{image && <img className=" w-full h-full object-contain" src={image} alt={title} />}</div>
-                  <h2 className="text-2xl my-2 p-2">{title}</h2>
-                </Link>
-                <p className="text-right my-2 p-2"><Link href={`/profile/${author?.id}`}> Posted by {author?.username}</Link></p>
-              </div>)}
-          </div>
-          <input aria-label="Date" type="date" />
-        </main>*/}
       </div>
     </>
   );

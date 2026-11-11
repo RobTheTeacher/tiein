@@ -1,11 +1,15 @@
 'use client'
 import ErrorMessage from "@/components/ErrorMessage"
 import { TimePicker } from "@/components/reui/time-picker"
-import { InputGroup, InputGroupInput, InputGroupAddon } from "@/components/ui/input-group"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import { SelectContent } from "@/components/ui/select"
 import { Tables } from "@/lib/supabase/database.types"
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-
+import { Button } from "@/components/ui/button"
 import {
   Select,
   SelectGroup,
@@ -13,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Calendar } from "@/components/ui/calendar"
 import { useState } from "react"
 import { CalendarIcon } from "lucide-react"
 import { Controller, useForm } from "react-hook-form"
@@ -21,12 +26,13 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { PostWithImageSchema } from "@/actions/schemas"
 import { useMutation } from "@tanstack/react-query"
 import { EditPost } from "@/actions/edit-post"
+import { format } from "date-fns"
 
 const EditForm = ({ initialValues, slug, states }: { initialValues: Pick<Tables<"posts">, "title" | "content" | "image" | "state" | "date" | "time">, slug: string, states: StateType[] }) => {
   const [time, setTime] = useState<string | null>(initialValues.time)
   const { register, handleSubmit, control, formState: { errors } } = useForm({
     resolver: zodResolver(PostWithImageSchema),
-    defaultValues: { ...initialValues }
+    defaultValues: { ...initialValues, date: new Date(initialValues.date) }
   })
 
   const { mutate } = useMutation({
@@ -102,24 +108,35 @@ const EditForm = ({ initialValues, slug, states }: { initialValues: Pick<Tables<
             )}
           />
           <div className="w-full flex md:justify-between g-4 md:basis-2/5 md:grow">
-            <Controller
-              name="date"
-              control={control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid} className="w-full">
-                  <FieldLabel htmlFor="date">When is the event?</FieldLabel>
-                  <InputGroup className="bg-white text-black font-bold">
-                    <InputGroupInput className="p- text-[1.4rem]" defaultValue={initialValues.date!} onChange={(value) => field.onChange(value)} id="date" type="date" />
-                    <InputGroupAddon>
-                      <CalendarIcon className="w-8 pointer" aria-hidden="true" />
-                    </InputGroupAddon>
-                  </InputGroup>
-                  {fieldState.invalid && (
-                    <FieldError className="text-[1.4rem] text-red-500" errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
+              <Controller
+                          name="date"
+                          control={control}
+                          render={({ field, fieldState }) => (
+                            <Field>
+                              <FieldLabel>When {field.value ? format(field.value, "PPP") : 'is the event?'}</FieldLabel>
+                              <Popover>
+                                <PopoverTrigger
+                                  render={
+                                    <Button
+                                      variant="outline"
+                                      data-empty={!field.value}
+                                      className="justify-start text-left font-normal data-[empty=true]:text-muted-foreground"
+                                    />
+                                  }
+                                >
+                                  <CalendarIcon />
+                                  {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                                </PopoverTrigger>
+                                {fieldState.invalid && (
+                                  <FieldError className="text-[1.4rem] text-red-500" errors={[fieldState.error]} />
+                                )}
+                                <PopoverContent className="w-auto p-0">
+                                  <Calendar mode="single" selected={field.value} onDayClick={field.onChange} />
+                                </PopoverContent>
+                              </Popover>
+                            </Field>
+                          )}
+                        />
           </div>
           <div className="w-full flex md:justify-between g-4 md:basis-2/5 md:grow">
             <Controller
