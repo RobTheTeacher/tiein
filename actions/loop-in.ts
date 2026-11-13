@@ -17,6 +17,4 @@ export const UnLoop = async ({ user, post }: { user: string, post: number }) => 
     .delete()
     .eq("user_id", user)
     .eq("post", post)
-
-  console.log("Data, ", data, "Error: ", error)
 }

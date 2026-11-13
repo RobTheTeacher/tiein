@@ -18,7 +18,7 @@ export const EditPost = async ({ postData, slug }: { postData: z.infer<typeof Po
 
   const imageFile = postData.image?.get('image')
   let imageUrl;
-console.log("Post:", post.image)
+
   if (typeof imageFile === "string")
       imageUrl = post.image
   else if (typeof imageFile !== "undefined") {
