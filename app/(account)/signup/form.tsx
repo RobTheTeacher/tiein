@@ -12,14 +12,14 @@ type StateType = {
 }
 
 const SignUpForm = ({ locations }: { locations: StateType[] }) => {
-  const [serverError, setServerError] = useState<string | null>(null)
+  const [serverError, setServerError] = useState<string | undefined>(undefined)
   const { register, handleSubmit, control, formState: { errors } } = useForm({
     resolver: zodResolver(SignUpSchema),
   })
 
   const { mutate, error } = useMutation({
     mutationFn: SignUp,
-    onSettled: (data) => setServerError(data ? data.message : null)
+    onSettled: (data) => setServerError(data ? data.message : undefined)
   })
 
   return (
