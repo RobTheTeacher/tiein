@@ -18,7 +18,12 @@ export const SignUp = async (userdata: z.infer<typeof SignUpSchema>) => {
     }
   })
 
-  if (error) throw new Error(error.message)
+  if (!user) {
+    console.log(error?.message)
+    return error?.message === "User already registered" ? {message: "Email already registered"} : {message: error?.message}
+  }
+
+
 
   if (user && user.email) {
 
@@ -26,7 +31,12 @@ export const SignUp = async (userdata: z.infer<typeof SignUpSchema>) => {
       .from("users")
       .insert([{ id: user.id, email: user.email, username: user.user_metadata.display_name, state: parsedData.state }])
 
-    if (error && error.code === "23505") throw new Error("Username is taken, choose another!")
+    //  if (error && error.code === "23505") throw new Error("Username is taken, choose another!")
+
+    if (!data) {
+      console.log("NO user")
+      return { message: 'Username error' }
+    }
   }
 
   redirect("/")

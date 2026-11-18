@@ -1,9 +1,10 @@
 'use client'
-import { useForm} from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SignUp } from "@/actions/signup"
 import { SignUpSchema } from '@/actions/schemas'
+import { useState } from 'react'
 
 type StateType = {
   id: number,
@@ -11,12 +12,14 @@ type StateType = {
 }
 
 const SignUpForm = ({ locations }: { locations: StateType[] }) => {
+  const [serverError, setServerError] = useState<string | null>(null)
   const { register, handleSubmit, control, formState: { errors } } = useForm({
     resolver: zodResolver(SignUpSchema),
   })
 
   const { mutate, error } = useMutation({
-    mutationFn: SignUp
+    mutationFn: SignUp,
+    onSettled: (data) => setServerError(data ? data.message : null)
   })
 
   return (
@@ -29,20 +32,20 @@ const SignUpForm = ({ locations }: { locations: StateType[] }) => {
         {errors.username && <p>{errors.username.message}</p>}
         <input className="textInput" type="password" {...register("password")} placeholder="Password" />
         {errors.password && <p>{errors.password.message}</p>}
-        {error && <p className="text-center mb-2 text-orange">{error.message}</p>}
+        {serverError && <p className="text-center mb-2 text-orange">{serverError}</p>}
         {locations &&
           <>
-            <select {...register('state')}  defaultValue=''
-            className='rounded-lg border border-text-primary/20 bg-white px-3 py-2 text-dark focus:outline-none focus:ring-2 focus:ring-accent-one'>
-            <option value='' disabled>
-            choose state
-            </option>
-            {locations?.map(state => (
-              <option key={state.id} value={state.id}>
-                {state.location}
+            <select {...register('state')} defaultValue=''
+              className='rounded-lg border border-text-primary/20 bg-white px-3 py-2 text-dark focus:outline-none focus:ring-2 focus:ring-accent-one'>
+              <option value='' disabled>
+                choose state
               </option>
-            ))}
-          </select>
+              {locations?.map(state => (
+                <option key={state.id} value={state.id}>
+                  {state.location}
+                </option>
+              ))}
+            </select>
             {errors.state && <p>{errors.state.message}</p>}
           </>
         }
