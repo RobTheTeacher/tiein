@@ -19,25 +19,14 @@ export const SignUp = async (userdata: z.infer<typeof SignUpSchema>) => {
   })
 
   if (!user) {
-    console.log(error?.message)
-    return error?.message === "User already registered" ? {message: "Email already registered"} : {message: error?.message}
+    return error?.message === "User already registered" ? {type: "email",  message: "Email already registered"} : {type: "username" ,message: error?.message}
   }
 
-
-
   if (user && user.email) {
-
     const { data, error } = await supabase
       .from("users")
       .insert([{ id: user.id, email: user.email, username: user.user_metadata.display_name, state: parsedData.state }])
 
-    //  if (error && error.code === "23505") throw new Error("Username is taken, choose another!")
-
-    if (!data) {
-      console.log("NO user")
-      return { message: 'Username error' }
-    }
+    if (error && error.code === "23505") throw new Error("Username is taken, choose another!")
   }
-
-  redirect("/")
 }

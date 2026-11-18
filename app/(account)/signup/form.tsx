@@ -5,21 +5,31 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { SignUp } from "@/actions/signup"
 import { SignUpSchema } from '@/actions/schemas'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 type StateType = {
   id: number,
   location: string
 }
 
+type ServerError = {
+  type: string,
+  message: string | undefined
+}
+
 const SignUpForm = ({ locations }: { locations: StateType[] }) => {
-  const [serverError, setServerError] = useState<string | undefined>(undefined)
+  const [serverError, setServerError] = useState<ServerError | undefined>(undefined)
   const { register, handleSubmit, control, formState: { errors } } = useForm({
     resolver: zodResolver(SignUpSchema),
   })
-
+  const router = useRouter()
   const { mutate, error } = useMutation({
     mutationFn: SignUp,
-    onSettled: (data) => setServerError(data ? data.message : undefined)
+    onSuccess: (result) => {
+      setServerError(result ? { type: result.type, message: result.message } : undefined)
+      router.push("/")
+      router.refresh()
+    }
   })
 
   return (
@@ -28,11 +38,14 @@ const SignUpForm = ({ locations }: { locations: StateType[] }) => {
         className="flex flex-col max-w-[350px] m-auto mb-8">
         <input className="textInput" {...register("email")} placeholder="Email" />
         {errors.email && <p>{errors.email.message}</p>}
+        {(serverError && serverError.type === "email") && <p className="text-center mb-2 text-orange">{serverError.message}</p>}
+
         <input className="textInput" {...register("username")} placeholder="Username" />
         {errors.username && <p>{errors.username.message}</p>}
+        {(serverError && serverError.type === "username") && <p className="text-center mb-2 text-orange">{serverError.message}</p>}
+
         <input className="textInput" type="password" {...register("password")} placeholder="Password" />
         {errors.password && <p>{errors.password.message}</p>}
-        {serverError && <p className="text-center mb-2 text-orange">{serverError}</p>}
         {locations &&
           <>
             <select {...register('state')} defaultValue=''
