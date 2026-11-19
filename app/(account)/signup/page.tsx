@@ -4,6 +4,7 @@ import SignUpForm from "./form"
 import Image from 'next/image'
 import About from "@/components/About"
 import { getLocations } from "@/lib/supabase/queries"
+import Title from "@/components/Title"
 
 const SignUpPage = async () => {
   const states = await getLocations()
@@ -11,21 +12,17 @@ const SignUpPage = async () => {
   return (
     <div className="m-8">
       <About />
-      <div className="m-auto max-w-[550px]">
-        <h1 className="pageTitle">Sign up to</h1>
-        <Link className="block mb-12" href="/">
-          <Image
-            className="dark:invert m-auto mt-8"
-            src="/tie-in-logo.gif"
-            alt="tie in logo"
-            width={800}
-            height={500}
-            priority
-          />
+      <div className="flex flex-col-reverse md:flex-row w-full items-center justify-end">
+        <div className="basis-2/5 flex flex-col items-end">
+          <div>
+            <div className="text-3xl self-start">Sign up to</div>
+            <Title />
+            <SignUpForm states={states} />
+          </div>
+        </div>
+        <Link href="/" className="basis-3/5 max-w-3/5">
+          <img src="/cropped-tie-in.gif" alt="tie in" />
         </Link>
-        <SignUpForm locations={states} />
-        <p className="text-center mb-4">Already have an account?</p>
-        <Link href="/login" className="block text-center text-yellow">Log In</Link>
       </div>
     </div>
   )

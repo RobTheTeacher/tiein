@@ -1,4 +1,5 @@
 'use client'
+import { ArrowRight } from "lucide-react"
 import { useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -6,6 +7,10 @@ import { LogIn } from "@/actions/login"
 import { LogInSchema } from '@/actions/schemas'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import ErrorMessage from "@/components/ErrorMessage"
+import TieInButton from "../tieInButton"
+
 
 const LogInForm = () => {
   const [serverError, setServerError] = useState<string | undefined>(undefined)
@@ -24,12 +29,16 @@ const LogInForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(values => mutate(values))} className="flex flex-col w-full max-w-[350px] m-auto">
-        <input className="textInput" {...register("email")} placeholder="Email..." />
-        {errors.email && <p>{errors.email.message}</p>}
-        <input className="textInput" type="password" {...register("password")} placeholder="Shh, its a secret" />
-        {errors.password && <p>{errors.password.message}</p>}
-        <button type="submit" className="linkButton my-8">Tie In &#8594;</button>
+      <form onSubmit={handleSubmit(values => mutate(values))} className="flex flex-col w-full max-w-[400px]">
+        <input className="textInput" {...register("email")} placeholder="Email" />
+        {errors.email && <ErrorMessage message={errors.email.message!} />}
+        <input className="textInput" type="password" {...register("password")} placeholder="Password" />
+        {errors.password && <ErrorMessage message={errors.password.message!} />}
+        <div className="flex justify-between mt-2">
+          <Link href="/reset" className="opacity-75 link">Forgot password?</Link>
+          <Link href="/signup" className="underline opacity-75 link">Sign up</Link>
+        </div>
+        <TieInButton />
       </form>
       {serverError && <p className="text-center mb-2 text-orange">{serverError}</p>}
     </>

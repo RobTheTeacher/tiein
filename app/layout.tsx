@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "./globals.css"
 import {
   QueryClientProvider,
 } from '@/providers/query-client-providers'
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("font-sans", inter.variable)}>
-      <body className="relative max-w-360 m-auto">
+      <body className="relative p-4 md:p-12">
         <QueryClientProvider>
           {children}
         </QueryClientProvider>
