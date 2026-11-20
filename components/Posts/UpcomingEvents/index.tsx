@@ -5,13 +5,9 @@ const UpcomingEvents = ({ posts, location }: { posts: HomePostType | null, locat
   return (
     <div className="my-4">
       {posts && posts.length ?
-        <div className="flex p-4 justify-start gap-4 flex-wrap">
+        <div className="flex p-8 justify-between gap-8 flex-wrap">
           <h2 className="basis-full">Upcoming Events</h2>
-          {posts.map((post, index) =>
-            <div key={index} className="basis-[calc(100%/2-16px/2)] md:basis-[calc(100%/3-32px*2/3)] flex flex-col border-1 rounded-xl overflow-hidden">
-              <Post {...post} />
-            </div>
-          )}
+          {posts.map((post, index) => <Post key={post.id} {...post} />)}
         </div>
         : <h2 className="subTitle">{`No upcoming events in ${location ? location : "every where"}. This is an opportunity to get the ball rolling!`}</h2>
       }

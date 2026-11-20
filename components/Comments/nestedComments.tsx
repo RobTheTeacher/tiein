@@ -14,7 +14,7 @@ const NestedComment = ({ comment, isAuthor, userId, postId }: { comment: Comment
       <div className="border rounded-2xl p-4 pr-0 mb-4" key={comment.id}>
         <p className="mt-1">{comment.content}</p>
         <div className="text-right font-sm pr-4">by {comment.author.username}</div>
-        <div className="relative my-2 text-yellow text-sm">
+        <div className="relative my-2 text-orange text-sm">
           {userId  && <AddReply postId={postId} parentId={comment.id} />}
           {(isAuthor || (userId === comment.author.id)) && <div className="absolute top-0 right-4"><DeleteCommentButton commentId={comment.id} /></div>}
         </div>

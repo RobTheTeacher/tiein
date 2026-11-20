@@ -75,14 +75,13 @@ const Posts = () => {
     <div className="w-full flex flex-wrap">
       <div className="basis-full flex flex-col relative justify-start mb-12 md:flex-row md:justify-center">
         {states &&
-          <div className="absolute left-0 w-full">
-            <div onClick={() => setOpenStates(!openStates)} className="flex pl-4 gap-4 cursor-pointer">State: {locationName} <CaretDownIcon className={`${openStates ? "rotate-180" : "rotate-0"} transition`} size={32} /></div>
-            <div className={`${openStates ? "block" : "hidden"} box-border overflow-hidden bg-dark p-4`}><StateSelectOption key={null} id={null} optionName={"Every Where"} updateFunction={setStateOption} />
+          <div className="relative md:p-8">
+            <div onClick={() => setOpenStates(!openStates)} className="flex pl-4 gap-4 cursor-pointer font-heading md:text-4xl">Loose Threads in {locationName} <CaretDownIcon className={`${openStates ? "rotate-180" : "rotate-0"} transition`} size={32} /></div>
+            <div className={`${openStates ? "block" : "hidden"} absolute right-0 box-border overflow-hidden bg-dark-blue p-8 text-2xl font-heading leading-12`}><StateSelectOption key={null} id={null} optionName={"Every Where"} updateFunction={setStateOption} />
               {states.map((state, index) => <StateSelectOption key={index} id={state.id} optionName={state.location} updateFunction={setStateOption} />)}
             </div>
           </div>
         }
-        <h2 className="pageTitle mt-16 mb-0">{`Events in ${locationName}`}</h2>
       </div>
       {loading ? <img src="heart.gif" alt="loading..." /> :
         <div>

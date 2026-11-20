@@ -1,8 +1,9 @@
+import { Plus } from "lucide-react"
 import Link from "next/link"
 
 const CreatePostButton = () => {
   return (
-      <Link className="linkButton" href="/create">Create Tie</Link>
+      <Link title="Create thread" className="linkButton" href="/create"><Plus size={64} className="text-orange"/></Link>
   )
 }
 

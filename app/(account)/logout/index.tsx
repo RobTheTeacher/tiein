@@ -1,10 +1,11 @@
 'use client'
 
-import { LogOut } from "@/actions/logout"
+import { LogOutAction } from "@/actions/logout"
+import { LogOut } from "lucide-react"
 
 const LogOutButton = () => {
   return (
-    <button className="linkButton" onClick={() => LogOut()}>Log Out</button>
+    <button className="linkButton" title="Log Out" onClick={() => LogOutAction()}><LogOut size={64} className="text-orange"  /></button>
   )
 }
 

@@ -17,7 +17,7 @@ const TieButton = ({ user, post, tiedIn }: { user: string, post: number, tiedIn:
   return (
     <>
       {user &&
-        <div className="linkButton" onClick={handleClick}>
+        <div className="postLink" onClick={handleClick}>
           {tieIn ? "Untie!" : "Tie In!"}
         </div >
       }

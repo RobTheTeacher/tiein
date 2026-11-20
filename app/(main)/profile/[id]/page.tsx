@@ -20,7 +20,7 @@ const ProfilePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   }
 
   return (
-    <div>
+    <div className="font-heading">
       <h1 className="text-4xl text-center mb-8 mt-8">{threadsTitle}</h1>
       <div className="w-full flex flex-wrap">
         {user && <Menu />}

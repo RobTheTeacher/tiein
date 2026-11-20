@@ -15,7 +15,7 @@ const LoopButton = ({ user, post, loopedIn }: { user: string, post: number, loop
   return (
     <>
       {user &&
-        <div className="linkButton" onClick={handleClick}>
+        <div className="postLink" onClick={handleClick}>
           {loop ? "UnLoop!" : "Keep me in the loop"}
         </div >
       }

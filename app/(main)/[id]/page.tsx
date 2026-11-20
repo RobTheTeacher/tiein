@@ -22,34 +22,37 @@ const PostPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <>
       {data &&
-        <div className="p-4" >
-          {
-            date && <div className="">
-              <div>Where: {state?.location}</div>
-              <div>When: {date}</div>
-              {time && <div>Starts at: {time}</div>}
-            </div>
-          }
-          <h1 className="text-6xl my-8">{title}</h1>
-          <div className="gap-8">
-            <div className="">
-              <img className="w-auto h-full m-auto" src={image ? image : '/tie-in-logo.gif'} alt={title} />
-            </div>
+        <div className="p-4 gap-8 flex flex-wrap font-heading">
+          <div className="md:basis-[calc(50%-32px)]">
+            <img className="w-full h-auto m-auto aspect-square" src={image ? image : '/tie-in-logo.gif'} alt={title} />
+          </div>
+
+          <div className="md:basis-[calc(50%-32px)] flex flex-col gap-8">
+            <h1 className="text-6xl my-8">{title}</h1>
             <div className="my-8">
               <div>{content}</div>
             </div>
           </div>
-          <h2 className="my-4 text-right"><Link href={`/profile/${author?.id}`}>Thread created by {author?.username}</Link></h2>
+          <div className="basis-[calc(50%-16px)]">
+            {
+              date && <div className="">
+                <div>In {state?.location}</div>
+                <div>On {date}</div>
+                {time && <div>At {time}</div>}
+              </div>
+            }
+          </div>
+          <div className="md:basis-[calc(50%-16px)]">
+            <h2 className=""><Link href={`/profile/${author?.id}`}>Thread created by {author?.username}</Link></h2>
+          </div>
           {user ?
             !isAuthor ?
-              <div>
-                <div className="my-8">
-                  <h2>Want to follow this event?</h2>
-                  <p>Tie in if you are going, or stay in the loop</p>
-                  <div className="flex flex-col md:flex-row gap-4 my-4">
-                    <TieButton user={user.id} post={pageId!} tiedIn={tiedIn} />
-                    <LoopButton user={user.id} post={pageId!} loopedIn={loopedIn} />
-                  </div>
+              <div className="w-full">
+                <h2>Want to follow this event?</h2>
+                <p>Tie in if you are going, or stay in the loop</p>
+                <div className="flex flex-col justify-between md:flex-row gap-4 my-4">
+                  <TieButton user={user.id} post={pageId!} tiedIn={tiedIn} />
+                  <LoopButton user={user.id} post={pageId!} loopedIn={loopedIn} />
                 </div>
               </div>
               :
@@ -59,7 +62,7 @@ const PostPage = async ({ params }: { params: Promise<{ id: string }> }) => {
               </div>
             : <></>
           }
-          <Comments comments={comments} postId={pageId} isAuthor={isAuthor} userId={user ? user.id : null}/>
+          <Comments comments={comments} postId={pageId} isAuthor={isAuthor} userId={user ? user.id : null} />
         </div >
       }
     </>

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+
+import { Finger_Paint } from "next/font/google";
 import "./globals.css"
 import {
   QueryClientProvider,
@@ -7,6 +9,11 @@ import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const fingerPaint = Finger_Paint({
+    subsets: ['latin'],
+    weight: "400",
+    variable: "--font-fingerpaint"
+  });
 
 export const metadata: Metadata = {
   title: "Tie In",
@@ -19,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", inter.variable)}>
-      <body className="relative p-4 md:p-12">
+    <html lang="en" className={cn("font-sans", inter.variable, fingerPaint.variable)}>
+      <body className="relative  md:p-12">
         <QueryClientProvider>
           {children}
         </QueryClientProvider>

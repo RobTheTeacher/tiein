@@ -1,7 +1,6 @@
 
 import Link from "next/link"
 import SignUpForm from "./form"
-import Image from 'next/image'
 import About from "@/components/About"
 import { getLocations } from "@/lib/supabase/queries"
 import Title from "@/components/Title"
