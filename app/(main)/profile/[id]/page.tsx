@@ -9,32 +9,31 @@ const ProfilePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params
   const { data, error } = await getUserPosts(id)
 
-  /* Need to get the username in another way, some user will not have any posts */
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser();
   const profileName = await getUserName(id)
-  let threadsTitle = user && user.id === id ? "All your threads" : `${profileName}'s threads`
+  const isAuthor: boolean = user && user.id === id ? true : false
+  let threadsTitle = isAuthor ? "All your threads" : `${profileName}'s threads`
 
   if (!data || data.length === 0) {
-    threadsTitle = user && user.id === id ? "You haven't made a thread yet" : `${profileName} hasn't made a thread yet`
+    threadsTitle = isAuthor ? "You haven't made a thread yet" : `${profileName} hasn't made a thread yet`
   }
 
   return (
     <div className="font-heading">
-      <h1 className="text-4xl text-center mb-8 mt-8">{threadsTitle}</h1>
+      <h1 className="text-4xl mb-8 mt-8">{threadsTitle}</h1>
       <div className="w-full flex flex-wrap">
-        {user && <Menu />}
-        <div className={`${user ? ' p-4 md:basis-4/5 md:pl-8' : 'w-full'} flex flex-wrap gap-8`}>
+        {/*user && <Menu />*/}
+        <div className={`w-full flex flex-wrap gap-8`}>
           {data && data.map(({ id, title, author, slug, image }, index) =>
-            <Link className="basis-[calc(100%/2-32px/2)] md:basis-[calc(100%/3-32px*2/3)] flex flex-col border-1 rounded-xl" key={index} href={`/${id}-${slug}`}>
+            <Link className="basis-[calc(100%/2-32px/2)] md:basis-[calc(100%/3-32px*2/3)] flex flex-col border-1" key={index} href={`/${id}-${slug}`}>
               <div className="w-full aspect-square flex align-center justify-center overflow-hidden">
                 {image && <img className=" w-full h-full object-contain" src={image} alt={title} />}</div>
-              <h2 className="text-2xl my-2 p-2">{title}</h2>
             </Link>)}
         </div>
       </div>
-      <UserTies id={id} />
-      <UserLoops id={id} />
+      <UserLoops id={id} userName={profileName} isAuthor={isAuthor} />
+      <UserTies id={id} userName={profileName} isAuthor={isAuthor} />
     </div>
   )
 }

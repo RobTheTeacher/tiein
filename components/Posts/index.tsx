@@ -1,9 +1,8 @@
 'use client'
 
-import { getHomePosts, getUserLocation, HomePostType, getLocationPosts, getLocations } from "@/lib/supabase/queries";
+import { getHomePosts, getUserLocation, HomePostType, getLocations } from "@/lib/supabase/queries";
 import { createClient } from "@/lib/supabase/browserClient";
 import { useEffect, useState } from "react";
-import Post from "./Post";
 import StateSelectOption from "../StateSelect";
 import { CaretDownIcon } from "@phosphor-icons/react";
 import { StateType } from "@/utils/types";

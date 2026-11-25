@@ -2,7 +2,7 @@
 import LogInButton from '@/app/(account)/login/button';
 import SignUpButton from '@/app/(account)/signup/button';
 import LogOutButton from '@/app/(account)/logout';
-import CreatePostButton from '@/app/(main)/create/button';
+import CreatePostButton from '@/app/(create)/create/button';
 import { useEffect, useState } from 'react';
 import { DotsThreeCircleVerticalIcon } from '@phosphor-icons/react';
 import { usePathname } from 'next/navigation';

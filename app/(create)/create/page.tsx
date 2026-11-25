@@ -1,6 +1,7 @@
 import { getLocations, getUserLocation } from "@/lib/supabase/queries"
 import CreatePostForm from "./form"
 import { createClient } from "@/lib/supabase/serverClient"
+import CreatePageHeader from "./header"
 
 const CreatePostPage = async () => {
   const supabase = await createClient()
@@ -9,10 +10,12 @@ const CreatePostPage = async () => {
 
   const locations = await getLocations()
   return (
-    <div className="p-4">
-      <h1 className="text-5xl text-center mb-16">Make a thread, make some ties</h1>
-      <CreatePostForm states={locations} homeState={homeState} />
-    </div>
+    <>
+      <CreatePageHeader />
+      <div className="p-4">
+        <CreatePostForm states={locations} homeState={homeState} />
+      </div>
+    </>
   )
 }
 

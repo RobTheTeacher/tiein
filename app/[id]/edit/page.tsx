@@ -2,7 +2,6 @@ import { getLocations, getSinglePostToEdit } from "@/lib/supabase/queries"
 import { createClient } from "@/lib/supabase/serverClient"
 import { redirect } from "next/navigation"
 import EditForm from "./form"
-//import EditPageForm from "./form"
 
 const EditPostPage = async ({ params }: { params: { id: string } }) => {
   const { id } = await params

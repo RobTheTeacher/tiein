@@ -843,7 +843,7 @@ export function TimePickerValue({
       id={`${context.id}-value`}
       data-slot="time-picker-value"
       data-placeholder={context.time ? undefined : ""}
-      className={cn("truncate", className)}
+      className={cn("truncate text-dark-blue", className)}
       {...props}
     >
       {context.time
@@ -856,7 +856,7 @@ export function TimePickerValue({
 /* `normal-case` and `tracking-normal` undo sera's uppercase button text: the
    trigger reads as a field, not an action. */
 const TRIGGER_CLASS =
-  "justify-between font-normal normal-case tracking-normal tabular-nums data-placeholder:text-muted-foreground"
+  "justify-between font-normal normal-case tracking-normal tabular-nums"
 
 export type TimePickerTriggerProps = ComponentProps<typeof Button> & {
   placeholder?: ReactNode
@@ -900,7 +900,7 @@ export function TimePickerTrigger({
         <span
           data-icon="inline-end"
           aria-hidden="true"
-          className="text-muted-foreground flex"
+          className=" flex"
         >
           {CLOCK_ICON}
         </span>
@@ -1236,7 +1236,7 @@ const COLUMN_CLASS =
    header clears the surface edge. It gains contrast while its list has
    keyboard focus, which says which column the arrows move. */
 const LABEL_CLASS =
-  "text-muted-foreground text-center text-xs whitespace-nowrap transition-colors select-none group-has-focus-visible/time-picker-column:text-foreground px-3 pt-3 pb-2.5"
+  "text-center text-xs whitespace-nowrap transition-colors select-none group-has-focus-visible/time-picker-column:text-foreground px-3 pt-3 pb-2.5"
 
 /* Five rows unless an ancestor sets `--time-picker-rows`; keep it odd so the
    selection can sit in the middle. The fade masks only an end with rows
@@ -1728,7 +1728,7 @@ export function TimePickerClear({
       size={size}
       disabled={context.disabled || context.readOnly}
       data-slot="time-picker-clear"
-      className={cn("text-muted-foreground", className)}
+      className={cn(className)}
       onClick={(event) => {
         onClick?.(event)
         if (event.defaultPrevented) return

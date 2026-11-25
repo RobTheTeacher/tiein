@@ -68,18 +68,16 @@ body:has(* .no-scroll) {
 }
 
 .box{@apply max-w-3xl m-auto my-8 rounded-2xl border border-white p-4}
-
 .postLink {@apply text-orange font-bold p-4 rounded-2xl cursor-pointer block text-center}
 .postLink:hover {@apply text-dark-blue }
-
 .pageTitle {@apply text-4xl text-center}
 .subTitle {@apply text-3xl text-center}
 .textInput,
-.createInput {@apply block w-full bg-white text-black font-bold px-2 py-4 my-4 cursor-pointer placeholder-dark-blue}
+.createInput {@apply block w-full bg-white text-dark-blue font-bold px-2 py-4 my-4 cursor-pointer placeholder-dark-blue}
 .createInput {@apply text-center m-auto md:w-[30vw] md:h-[30vw] }
 .line {@apply underline underline-offset-4}
-
 .link {@apply text-white hover:text-dark-blue transition}
+
 :root {
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);

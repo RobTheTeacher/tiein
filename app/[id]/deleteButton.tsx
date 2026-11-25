@@ -2,7 +2,7 @@
 import { DeleteAction } from "@/actions/delete-post"
 
 const DeleteButton = ({postId}: {postId: number}) => {
-  return  <button onClick={() => DeleteAction(postId!)} className="linkButton">Delete</button>      
+  return  <button onClick={() => DeleteAction(postId!)} className="linkButton text-orange cursor-pointer">Delete</button>      
 }
 
 export default DeleteButton

@@ -15,7 +15,6 @@ export const CreatePost = async (userdata: z.infer<typeof PostSchema>) => {
    const parsedData = PostSchema.parse(userdata)
    const slug = slugify(parsedData.title)
    const imageFile = userdata.image?.get('image')
-
    if (!(imageFile instanceof File) && imageFile !== null && imageFile !== "undefined") {
       throw new Error("Malformed Image file")
    }

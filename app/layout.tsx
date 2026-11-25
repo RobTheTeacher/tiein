@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("font-sans", inter.variable, fingerPaint.variable)}>
-      <body className="relative  md:p-12">
+      <body className="relative md:p-8">
         <QueryClientProvider>
           {children}
         </QueryClientProvider>

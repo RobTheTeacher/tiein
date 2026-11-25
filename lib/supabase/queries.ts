@@ -32,7 +32,7 @@ export const getSinglePostToEdit = async (id: number) => {
     .single()
 }
 
-export const getUserName = async (profile: string): Promise<string | undefined> => {
+export const getUserName = async (profile: string): Promise<string> => {
   const supabase = await createClient()
   const { data, error } = await supabase.from("users")
     .select('username')
