@@ -9,19 +9,15 @@ const SignUpPage = async () => {
   const states = await getLocations()
 
   return (
-    <div className="m-8">
+    <div className="accountPage">
+      <img className="absolute top-0 right-0 -z-10 h-screen md:w-[50%]" src="/backgrounds/signup-bg.png" />
       <About />
-      <div className="flex flex-col-reverse md:flex-row w-full items-center justify-end">
-        <div className="basis-2/5 flex flex-col items-end">
-          <div>
-            <div className="text-3xl self-start">Sign up to</div>
-            <Title />
-            <SignUpForm states={states} />
-          </div>
+      <div className="mt-8 md:mt-0 md:h-full flex flex-col-reverse md:flex-row w-full items-center">
+        <div className="basis-2/5 flex flex-col md:items-end">
+          <h1 className="text-3xl">Sign up to</h1>
+          <Title />
+          <SignUpForm states={states} />
         </div>
-        <Link href="/" className="basis-3/5 max-w-3/5">
-          <img src="/cropped-tie-in.gif" alt="tie in" />
-        </Link>
       </div>
     </div>
   )

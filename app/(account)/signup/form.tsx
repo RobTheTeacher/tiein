@@ -93,7 +93,7 @@ const SignUpForm = ({ states }: { states: StateType[] }) => {
           />
         }
         <TieInButton />
-        <p className="my-4 opacity-75">Have an account? Sign in <Link className="line link" href="/login">here</Link></p>
+        <p className="my-2 opacity-75">Have an account? Sign in <Link className="line link" href="/login">here</Link></p>
       </form>
     </>
   )

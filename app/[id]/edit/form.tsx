@@ -65,9 +65,9 @@ const EditForm = ({ initialValues, slug, states }: { initialValues: Pick<Tables<
   }
 
   return (
-    <div>
+    <div className="p-4 md:py-4">
       <h1 className="pageTitle font-heading">Editing {initialValues.title}</h1>
-      <form onSubmit={handleSubmit(values => {
+      <form className="mt-8" onSubmit={handleSubmit(values => {
         const imageForm = new FormData()
 
         if (image) {
@@ -83,14 +83,14 @@ const EditForm = ({ initialValues, slug, states }: { initialValues: Pick<Tables<
           slug: slug
         })
       })}>
-        <div className="flex flex-wrap gap-8 justify-center">
-          <div className="w-full aspect-square md:h-75 md:w-75 md:basis-[calc(50%-32px)]">
+        <div className="md:flex flex-wrap gap-16 justify-center w-full">
+          <div className="w-full aspect-2/3 md:basis-[calc(50%-32px)]">
             {preview ?
-              <div className="mt-2 h-full w-full relative ">
+              <div className="h-full w-full relative ">
                 <img
                   src={preview}
                   alt="Preview"
-                  className="w-full h-auto"
+                  className="w-full h-full object-cover"
                 />
                 <div className="absolute top-0 right-0 h-10 w-10 bg-faded-dark-blue flex justify-center items-center">
                   <Delete size={32} onClick={removeImage} />
@@ -104,99 +104,101 @@ const EditForm = ({ initialValues, slug, states }: { initialValues: Pick<Tables<
               </div>
             }
           </div>
-          <div className="w-full">
-            <label htmlFor="title">Edit title</label>
-            <input id="title" className="textInput" {...register("title")} placeholder="Title" ></input>
-            {errors.title && <ErrorMessage message={errors.title.message!} />}
+          <div className="w-full aspect-2/3 md:pr-16 mt-4 md:mt-0 md:basis-[calc(50%-32px)] flex flex-col">
+            <div className="mt-0 w-full"><label htmlFor="title">Edit title</label>
+              <input id="title" className="textInput" {...register("title")} placeholder="Title" ></input>
+              {errors.title && <ErrorMessage message={errors.title.message!} />}
+            </div>
+
+            <div className="w-full flex flex-col grow">
+              <label htmlFor="description">Add an optional description</label>
+              <textarea id="description" className="mb-0 grow block w-full bg-white text-dark-blue px-2 py-4 my-4 cursor-pointer placeholder-dark-blue text-lg" {...register("content")} placeholder="Add a description" />
+              {errors.content && <ErrorMessage message={errors.content.message!} />}
+            </div>
           </div>
-          <div className="w-full">
-            <label htmlFor="description">Add an optional description</label>
-            <textarea id="description" className="textInput" {...register("content")} placeholder="Add a description" />
-            {errors.content && <ErrorMessage message={errors.content.message!} />}
-          </div>
-          <Controller
-            name="state"
-            control={control}
-            render={({ field, fieldState }) => (
-              <Field>
-                <FieldLabel htmlFor="state">Where is the event?</FieldLabel>
-                <Select items={locations}
-                  onValueChange={field.onChange}
-                  defaultValue={initialValues.state}>
-                  <SelectTrigger className="w-45 p-1 pl-4 text-dark-blue text-sm">
-                    <SelectValue placeholder="Select State" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {locations.map((state) => (
-                        <SelectItem key={state.value} value={state.value}>
-                          {state.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-                {fieldState.invalid && (
-                  <FieldError className="text-[1.4rem] text-red-500" errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
-          <div className="w-full flex md:justify-between g-4 md:basis-2/5 md:grow">
-            <Controller
-              name="date"
-              control={control}
-              render={({ field, fieldState }) => (
-                <Field>
-                  <FieldLabel>When {field.value ? format(field.value, "PPP") : 'is the event?'}</FieldLabel>
-                  <Popover>
-                    <PopoverTrigger
-                      render={
-                        <Button
-                          variant="outline"
-                          data-empty={!field.value}
-                          className="justify-start bg-white text-left font-normal text-dark-blue hover:text-dark-blue hover:cursor-pointer"
-                        />
-                      }
-                    >
-                      <CalendarIcon />
-                      {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
-                    </PopoverTrigger>
+          <div className="w-full flex flex-col mt-4 md:flex-row md:px-32 gap-4">
+            <div className="flex gap-8 basis-[calc((100%/3)-8px)]">
+              <Controller
+                name="state"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <Select items={locations}
+                      onValueChange={field.onChange}
+                      defaultValue={initialValues.state}>
+                      <SelectTrigger className="w-45 p-1 pl-4 text-dark-blue text-sm">
+                        <SelectValue placeholder="Select State" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {locations.map((state) => (
+                            <SelectItem key={state.value} value={state.value}>
+                              {state.label}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                     {fieldState.invalid && (
                       <FieldError className="text-[1.4rem] text-red-500" errors={[fieldState.error]} />
                     )}
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar mode="single" selected={field.value} onDayClick={field.onChange} />
-                    </PopoverContent>
-                  </Popover>
-                </Field>
-              )}
-            />
-          </div>
-          <div className="w-full flex md:justify-between g-4 md:basis-2/5 md:grow">
-            <Controller
-              name="time"
-              control={control}
-              render={({ field, fieldState }) =>
-                <Field>
-                  <FieldLabel id="time-label" htmlFor="time">
-                    Event starts: {time}
-                  </FieldLabel>
-                  <TimePicker
-                    className="bg-white text-dark-blue hover:text-dark-blue hover:cursor-pointer pointer-events-auto"
-                    id="time"
-                    aria-labelledby="time-label"
-                    onValueChange={setTime}
-                    defaultValue={initialValues.time}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError className="text-[1.4rem] text-red-500" errors={[fieldState.error]} />
-                  )}
-                </Field>
-              } />
+                  </Field>
+                )}
+              />
+            </div>
+            <div className="basis-[calc((100%/3)-8px)] flex md:justify-between g-4">
+              <Controller
+                name="date"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <Popover>
+                      <PopoverTrigger
+                        render={
+                          <Button
+                            variant="outline"
+                            data-empty={!field.value}
+                            className="justify-start bg-white text-left font-normal text-dark-blue hover:text-dark-blue hover:cursor-pointer"
+                          />
+                        }
+                      >
+                        <CalendarIcon />
+                        {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                      </PopoverTrigger>
+                      {fieldState.invalid && (
+                        <FieldError className="text-[1.4rem] text-red-500" errors={[fieldState.error]} />
+                      )}
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar mode="single" selected={field.value} onDayClick={field.onChange} />
+                      </PopoverContent>
+                    </Popover>
+                  </Field>
+                )}
+              />
+            </div>
+            <div className="basis-[calc((100%/3)-8px)] flex md:justify-between g-4">
+              <Controller
+                name="time"
+                control={control}
+                render={({ field, fieldState }) =>
+                  <Field>
+                    <TimePicker
+                      className="bg-white text-dark-blue hover:text-dark-blue hover:cursor-pointer pointer-events-auto"
+                      id="time"
+                      aria-labelledby="time-label"
+                      onValueChange={setTime}
+                      defaultValue={initialValues.time}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError className="text-[1.4rem] text-red-500" errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                } />
+            </div>
           </div>
         </div>
-        <button className="block font-bold align:right text-dark-blue cursor-pointer">Update your thread <ArrowRight className="inline" size={48} /></button>
+        <button className="pt-8 pr-4 w-full block font-bold text-right text-dark-blue cursor-pointer">Update your thread <ArrowRight className="inline" size={48} /></button>
+
       </form >
     </div >
   )

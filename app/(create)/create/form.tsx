@@ -87,14 +87,14 @@ const CreatePostForm = ({ states, homeState }: { states: StateType[], homeState:
         })
       })}>
         <div className="md:flex flex-wrap gap-16 justify-center w-full">
-          <div className="md:flex gap-16 justify-center  md:h-75">
-            <div className="w-full aspect-square md:h-75 md:w-75 md:basis-[calc(50%-32px)]">
+          <div className="w-full md:flex gap-16 justify-center ">
+            <div className="w-full md:h-150 md:w-100 aspect-2/3 md:basis-[calc(50%-32px)]">
               {preview ?
-                <div className="mt-2 h-full w-full relative ">
+                <div className="h-full w-full relative ">
                   <img
                     src={preview}
                     alt="Preview"
-                    className="w-full h-auto"
+                    className="w-full h-full object-cover"
                   />
                   <div className="absolute top-0 right-0 h-10 w-10 bg-faded-dark-blue flex justify-center items-center">
                     <Delete size={32} onClick={removeImage} />
@@ -110,23 +110,21 @@ const CreatePostForm = ({ states, homeState }: { states: StateType[], homeState:
             </div>
             <div className="w-full mt-4 md:mt-0 md:basis-[calc(50%-32px)] md:flex flex-col h-full">
               <div className="mt-0">
-                <input id="title" className="mt-0 block w-full bg-white text-black font-bold px-2 py-4 my-4 cursor-pointer placeholder-dark-blue" {...register("title")} placeholder="Event Title" ></input>
+                <input id="title" className="mt-0 block w-full bg-white text-black font-bold px-2 py-4 my-4 cursor-pointer placeholder-dark-blue text-lg" {...register("title")} placeholder="Event Title" ></input>
                 {errors.title && <ErrorMessage message={errors.title.message!} />}
               </div>
-              <textarea id="description" className="mb-0 grow block w-full bg-white text-black font-bold px-2 py-4 my-4 cursor-pointer placeholder-dark-blue" {...register("content")} placeholder="Event description (optional)" />
+              <textarea id="description" className="mb-0 grow block w-full bg-white text-black font-bold px-2 py-4 my-4 cursor-pointer placeholder-dark-blue text-lg" {...register("content")} placeholder="Event description (optional)" />
               {errors.content && <ErrorMessage message={errors.content.message!} />}
-
             </div>
           </div>
         </div>
-        <div className="w-full md:flex gap-4 px-2 py-4">
+        <div className="w-full mt-16 md:flex gap-4">
           <div className="flex gap-8 basis-[calc((100%/3)-8px)]">
             <Controller
               name="state"
               control={control}
               render={({ field, fieldState }) => (
                 <Field>
-                  <FieldLabel htmlFor="state">Location</FieldLabel>
                   <Select items={locations}
                     onValueChange={field.onChange}
                     defaultValue={homeState}>
@@ -156,7 +154,6 @@ const CreatePostForm = ({ states, homeState }: { states: StateType[], homeState:
               control={control}
               render={({ field, fieldState }) => (
                 <Field>
-                  <FieldLabel>Date</FieldLabel>
                   <Popover>
                     <PopoverTrigger
                       render={
@@ -187,12 +184,10 @@ const CreatePostForm = ({ states, homeState }: { states: StateType[], homeState:
               control={control}
               render={({ field, fieldState }) =>
                 <Field>
-                  <FieldLabel id="time-label" htmlFor="time">
-                    Start: {time}
-                  </FieldLabel>
                   <TimePicker
                     className="bg-white text-dark-blue hover:text-dark-blue hover:cursor-pointer pointer-events-auto"
                     id="time"
+                    value={time}
                     aria-labelledby="time-label"
                     onValueChange={setTime}
                   />

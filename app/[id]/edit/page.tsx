@@ -11,16 +11,17 @@ const EditPostPage = async ({ params }: { params: { id: string } }) => {
   const { data: { user } } = await supabase.auth.getUser()
 
   const { data, error } = await getSinglePostToEdit(pageId)
-    const locations = await getLocations()
+  const locations = await getLocations()
 
   if (user && data && user.id !== data.author.id)
     redirect("/")
-  
+
   return (
     <>
       {data &&
-        <div className="p-4">
-          <EditForm initialValues={{...data}} states={locations} slug={id} />
+        <div className="w-full order-3 md:order-2 md:basis-17/23 md:py-4 md:mt-16
+             md:bg-linear-to-r from-blue to-10% bg-faded-dark-blue from-10%">
+          <EditForm initialValues={{ ...data }} states={locations} slug={id} />
         </div>
       }
     </>

@@ -32,7 +32,7 @@ const ProfilePage = async ({ params }: { params: Promise<{ id: string }> }) => {
             </Link>)}
         </div>
       </div>
-      <UserLoops id={id} userName={profileName} isAuthor={isAuthor} />
+      {isAuthor && <UserLoops id={id} userName={profileName} isAuthor={isAuthor} />}
       <UserTies id={id} userName={profileName} isAuthor={isAuthor} />
     </div>
   )
